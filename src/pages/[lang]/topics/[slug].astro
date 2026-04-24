@@ -76,7 +76,7 @@ const canonical = localizedPath(lang, `/topics/${cleanSlug}`);
       {worksheets.map((w) => (
         <WorksheetCard
           lang={lang}
-          slug={w.data.slug.replace(/-en$/, '')}
+          slug={w.data.worksheetSlug}
           title={w.data.title}
           description={w.data.description}
           grade={w.data.grade}

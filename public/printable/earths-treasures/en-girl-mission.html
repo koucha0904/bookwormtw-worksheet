@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earth's Treasures Worksheet | Girl Mission</title>
+  <style>
+    @page { size: A4 portrait; margin: 14mm 14mm 18mm 14mm; }
+
+    :root {
+      --ink: #4f3a35;
+      --muted: #8b6f69;
+      --primary: #b46b7a;
+      --secondary: #c98a7d;
+      --soft-pink: #ead2d8;
+      --paper-bg: #f5ebe8;
+      --hero-bg: #fbf2f0;
+      --card-bg: #ffffff;
+      --line: #ead7d3;
+      --section-bg: #fff8f7;
+      --challenge-bg: #fff6e0;
+      --challenge-border: #e8c877;
+      --hint-bg: #fff1ee;
+      --lavender: #f3ebf7;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.58;
+      background: var(--paper-bg);
+    }
+    body { padding: 22px 14px 36px; }
+    .sheet { max-width: 210mm; margin: 0 auto; }
+    .page {
+      background: #fff;
+      box-shadow: 0 16px 40px rgba(120, 78, 72, 0.14);
+      border-radius: 20px;
+      padding: 14mm 14mm 12mm;
+      margin: 0 auto 20px;
+      break-after: page;
+      page-break-after: always;
+    }
+    .page:last-of-type {
+      break-after: auto;
+      page-break-after: auto;
+    }
+    .hero,
+    .section-card,
+    .hardness-card,
+    .wish-card,
+    .observation-block,
+    .challenge-box,
+    .favorite-card,
+    .drawing-card,
+    .quiz-card,
+    .reflection-card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    h1, h2, h3, p { margin: 0; }
+    .hero {
+      background: linear-gradient(180deg, var(--hero-bg), #fff8f6);
+      border: 2px solid #efd9d5;
+      border-radius: 24px;
+      padding: 16px 20px 18px;
+      text-align: center;
+    }
+    .hero-emoji {
+      font-size: 42px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .hero h1 {
+      font-size: 30px;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      color: var(--primary);
+    }
+    .hero .subtitle {
+      margin-top: 6px;
+      font-size: 15px;
+      color: var(--secondary);
+    }
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+    .field-line {
+      flex: 1;
+      border-bottom: 1.8px solid var(--secondary);
+      min-height: 18px;
+    }
+    .section-card,
+    .hardness-card,
+    .wish-card,
+    .challenge-box,
+    .favorite-card,
+    .drawing-card,
+    .quiz-card,
+    .reflection-card {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: var(--card-bg);
+    }
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 17px;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    .body-copy {
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .body-copy strong { color: var(--primary); }
+    .hardness-card { background: var(--section-bg); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+    th, td {
+      border: 1px solid #eadad5;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f7e7e4;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .wish-card { background: linear-gradient(180deg, #fffafb, #fffefe); }
+    .check-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px 18px;
+      margin-top: 6px;
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+    }
+    .box {
+      width: 15px;
+      height: 15px;
+      border: 2px solid var(--secondary);
+      border-radius: 4px;
+      flex: 0 0 auto;
+      margin-top: 2px;
+      background: #fff;
+    }
+    .observation-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .observation-block {
+      display: grid;
+      grid-template-columns: 50mm 1fr;
+      gap: 12px;
+      padding: 12px;
+      border: 1.8px solid #eddeda;
+      border-radius: 16px;
+      background: #fffdfd;
+    }
+    .observation-label {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, var(--hint-bg), var(--lavender));
+    }
+    .observation-label .zone {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .observation-label .prompt {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .notes {
+      min-height: 18mm;
+      padding-top: 4px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 8mm,
+        rgba(180, 107, 122, 0.20) 8mm,
+        rgba(180, 107, 122, 0.20) 8.5mm
+      );
+    }
+    .challenge-box {
+      border-color: var(--challenge-border);
+      background: var(--challenge-bg);
+    }
+    .inline-line {
+      display: inline-block;
+      min-width: 120px;
+      border-bottom: 1.8px solid var(--secondary);
+      min-height: 18px;
+      vertical-align: middle;
+    }
+    .favorite-fields {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .favorite-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    .favorite-line .line {
+      flex: 1;
+      border-bottom: 1.8px solid var(--secondary);
+      min-height: 18px;
+    }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .drawing-card { background: linear-gradient(180deg, #fffafb, #fffefe); }
+    .draw-box {
+      min-height: 50mm;
+      margin-top: 8px;
+      border: 2px dashed #d9b8c0;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(251,244,247,0.92));
+      padding: 12px;
+    }
+    .draw-hint {
+      color: #c6a0aa;
+      font-size: 13px;
+    }
+    .quiz-card { background: #fffdfd; }
+    .quiz-card h3 {
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .question {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: #fff7f6;
+      border: 1.5px solid #ecd8d5;
+    }
+    .question-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .answer-lines {
+      min-height: 10mm;
+      margin-bottom: 6px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 8mm,
+        rgba(180, 107, 122, 0.20) 8mm,
+        rgba(180, 107, 122, 0.20) 8.5mm
+      );
+    }
+    .reference {
+      font-size: 11px;
+      color: #7f6a66;
+      border-left: 4px solid #d9b8c0;
+      padding-left: 10px;
+      line-height: 1.4;
+    }
+    .reflection-box {
+      min-height: 14mm;
+      margin-top: 8px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 8mm,
+        rgba(180, 107, 122, 0.20) 8mm,
+        rgba(180, 107, 122, 0.20) 8.5mm
+      );
+    }
+    .footer {
+      margin-top: 10mm;
+      padding-top: 4mm;
+      border-top: 1px solid #ecd9d5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .screen-print-hint {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media print {
+      html, body { background: #fff; }
+      body { padding: 0; }
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0;
+      }
+      .screen-print-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="page">
+      <div class="hero">
+        <div class="hero-emoji">💎</div>
+        <h1>Earth's Treasures Worksheet</h1>
+        <p class="subtitle">Inside Taichung's Mineral World</p>
+        <div class="name-row">
+          <div class="field"><span>My name</span><span class="field-line"></span></div>
+          <div class="field"><span>Date of visit</span><span class="field-line"></span></div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>🪨 What Is a Mineral?</h2>
+        <p class="body-copy">
+          A mineral is a naturally formed solid with a fixed chemical composition and a regular crystal structure.
+          The same mineral has the same structure whether it is found in Taiwan, Brazil, or even on the Moon.
+          Today you will see more than 1,700 mineral specimens at the museum.
+        </p>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>1</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+
+    <section class="page">
+      <div class="hardness-card">
+        <h3>📏 Mohs Hardness Mini Guide</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Hardness</th>
+              <th>Mineral</th>
+              <th>Everyday comparison</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Talc</td><td>Your fingernail scratches it easily</td></tr>
+            <tr><td>2</td><td>Gypsum</td><td>A fingernail (about 2.5) can scratch it</td></tr>
+            <tr><td>3</td><td>Calcite</td><td>A coin is about 3.5</td></tr>
+            <tr><td>5</td><td>Apatite</td><td>Glass is about 5.5</td></tr>
+            <tr><td>7</td><td>Quartz, amethyst</td><td>A small knife cannot scratch it</td></tr>
+            <tr><td>10</td><td>Diamond</td><td>The hardest mineral on Earth</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="wish-card">
+        <h3>✨ Three Things I Most Want to See</h3>
+        <div class="check-grid">
+          <div class="check-item"><span class="box"></span><span>Giant amethyst geode</span></div>
+          <div class="check-item"><span class="box"></span><span>Fluorescent minerals</span></div>
+          <div class="check-item"><span class="box"></span><span>Hokutolite from Taiwan</span></div>
+          <div class="check-item"><span class="box"></span><span>5-ton stalactite forest</span></div>
+          <div class="check-item"><span class="box"></span><span>Apollo 11 Moon rock</span></div>
+          <div class="check-item"><span class="box"></span><span>Fengtian nephrite jade</span></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>2</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+
+    <section class="page">
+      <div class="section-card">
+        <h2>🔎 Gallery Observation Notes</h2>
+        <p class="body-copy">
+          At each zone, stop for one minute and write what you notice: colour, shape, size, or what it reminds you of.
+        </p>
+      </div>
+
+      <div class="observation-list">
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">① Mineral Evolution</div>
+            <div class="prompt">Look for the 290 cm banded iron rock near the entrance. It tells the story of Earth before and after oxygen.</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">② Crystal Symmetry</div>
+            <div class="prompt">Crystals can be cubic, hexagonal, rhombohedral, and more. Pick the one you think looks most symmetrical.</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">③ Colour and Luster</div>
+            <div class="prompt">Do not miss the 1,700 kg fluorescent rock. Under short-wave UV, Willemite glows green and Calcite glows red.</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>3</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+
+    <section class="page">
+      <div class="section-card">
+        <h2>🔎 Gallery Observation Notes</h2>
+        <p class="body-copy">
+          Choose two more zones that caught your eye and keep exploring.
+        </p>
+      </div>
+
+      <div class="observation-list">
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">④ Treasures of Taiwan</div>
+            <div class="prompt">Hokutolite, Fengtian nephrite, and natural gold from Jiufen are here. Hokutolite is one of the few minerals named after a place in Taiwan.</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">⑤ Minerals of the World</div>
+            <div class="prompt">Look for the heart-shaped amethyst cluster weighing 1,598 kg, plus dramatic crystals from Brazil and India.</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+      </div>
+
+      <div class="challenge-box">
+        <h3>🔎 Mini Challenge</h3>
+        <p class="body-copy">Find one mineral somewhere in the gallery that looks like a heart: <span class="inline-line"></span></p>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>4</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+
+    <section class="page">
+      <div class="favorite-card">
+        <h2>💗 My Favourite Mineral Today</h2>
+        <div class="favorite-fields">
+          <div class="favorite-line"><span>Its name:</span><span class="line"></span></div>
+          <div class="split-row">
+            <div class="favorite-line"><span>From:</span><span class="line"></span></div>
+            <div class="favorite-line"><span>Mohs hardness:</span><span class="line"></span></div>
+          </div>
+          <div class="favorite-line"><span>Why I like it:</span><span class="line"></span></div>
+        </div>
+      </div>
+
+      <div class="drawing-card">
+        <h3>🖍️ Draw It</h3>
+        <div class="draw-box">
+          <div class="draw-hint">Draw here</div>
+        </div>
+      </div>
+
+      <div class="quiz-card">
+        <h3>🧠 Quick Mineral Quiz</h3>
+
+        <div class="question">
+          <div class="question-title">Q1. Why is Hokutolite special to Taiwan?</div>
+          <div class="answer-lines"></div>
+          <div class="reference">
+            It has only been found in Beitou, Taiwan, and Tamagawa, Japan. It is one of the few minerals named after a place in Taiwan.
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="question-title">Q2. Why do fluorescent minerals glow?</div>
+          <div class="answer-lines"></div>
+          <div class="reference">
+            They absorb high-energy light such as UV, then release that energy as visible light. That is fluorescence.
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="question-title">Q3. How did the museum get its Moon rock?</div>
+          <div class="answer-lines"></div>
+          <div class="reference">
+            After Apollo 11 brought Moon samples back in 1969, the United States gifted one to the Republic of China. It was later transferred to the museum for permanent collection.
+          </div>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <h3>💬 One Sentence Before You Leave</h3>
+        <div class="reflection-box"></div>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>5</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+  </main>
+</body>
+</html>

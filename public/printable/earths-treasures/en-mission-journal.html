@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earth's Treasures Mission Worksheet</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
+      background: #ece0cd;
+      color: #3a2c1a;
+      line-height: 1.55;
+      padding: 20px 0;
+    }
+
+    .sheet-wrap {
+      max-width: 210mm;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(100, 70, 20, .18);
+      border-radius: 4px;
+    }
+
+    .page {
+      padding: 11mm 12mm 10mm;
+      min-height: 269mm;
+      background: #fdf6ec;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      page-break-after: always;
+      break-after: page;
+    }
+
+    .page + .page { border-top: 3px dashed #d5b07c; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+
+    h1.ws-title {
+      font-size: 22pt;
+      font-weight: 900;
+      color: #8a5f33;
+      text-align: center;
+      letter-spacing: .03em;
+      margin-bottom: 2px;
+    }
+
+    h2.ws-subtitle {
+      font-size: 12.5pt;
+      font-weight: 600;
+      color: #c4925a;
+      text-align: center;
+      letter-spacing: .05em;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #8a5f33;
+      margin: 10px 0 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 11pt;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+      background: #c4925a;
+    }
+
+    .badge-q {
+      background: #d5b07c;
+      color: #3a2c1a;
+    }
+
+    .box-mission,
+    .box-check,
+    .box-gold,
+    .box-reason,
+    .box-tip,
+    .identity-box,
+    .opening-box,
+    .task-cards,
+    .obs-table,
+    .box-draw,
+    .answer-pair {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .opening-box,
+    .identity-box,
+    .box-mission,
+    .box-check,
+    .box-reason,
+    .box-tip,
+    .box-gold {
+      border-radius: 3mm;
+      margin-bottom: 8px;
+      background: #fffaf4;
+    }
+
+    .opening-box {
+      border: 2px dashed #c4925a;
+      padding: 8px 12px;
+      font-size: 10.3pt;
+      line-height: 1.55;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .identity-box {
+      border: 2px solid #c4925a;
+      padding: 8px 12px;
+    }
+
+    .identity-box .role {
+      font-size: 11.5pt;
+      font-weight: 900;
+      color: #8a5f33;
+      margin-bottom: 4px;
+    }
+
+    .identity-box .goals {
+      margin-top: 5px;
+      padding-left: 4px;
+    }
+
+    .identity-box .goals li {
+      list-style: none;
+      display: flex;
+      gap: 6px;
+      font-size: 10pt;
+      padding: 1px 0;
+    }
+
+    .goal-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #c4925a;
+      color: #fff;
+      font-size: 8pt;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .box-mission,
+    .box-check,
+    .box-reason {
+      padding: 8px 11px;
+    }
+
+    .box-mission {
+      border-left: 4px solid #c4925a;
+      font-size: 10.2pt;
+    }
+
+    .box-check,
+    .box-reason {
+      border-left: 4px solid #d5b07c;
+    }
+
+    .box-tip {
+      border: 1.5px solid #d5b07c;
+      padding: 7px 11px;
+      font-size: 9.8pt;
+    }
+
+    .box-gold {
+      border: 2px solid #f0c060;
+      padding: 8px 12px;
+    }
+
+    .reason-label,
+    .tip-label,
+    .achievement-title {
+      font-size: 10.2pt;
+      font-weight: 700;
+      color: #8a5f33;
+      margin-bottom: 4px;
+    }
+
+    .task-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin: 8px 0;
+    }
+
+    .task-card {
+      border: 1.5px solid #c4925a;
+      border-radius: 3mm;
+      padding: 8px 7px;
+      background: #fffdf9;
+      text-align: center;
+    }
+
+    .task-card .num {
+      font-size: 15pt;
+      font-weight: 900;
+      color: #c4925a;
+      line-height: 1;
+    }
+
+    .task-card .name {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #8a5f33;
+      margin: 4px 0 2px;
+    }
+
+    .task-card .desc {
+      font-size: 8.6pt;
+      line-height: 1.32;
+      color: #6b4c2a;
+    }
+
+    .cover-hero {
+      text-align: center;
+      font-size: 44pt;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .cover-fields {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 8px 0;
+      font-size: 10pt;
+    }
+
+    .cover-field,
+    .answer-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cover-field {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .cover-field label,
+    .answer-line label {
+      white-space: nowrap;
+      font-weight: 700;
+      color: #8a5f33;
+    }
+
+    .line {
+      flex: 1;
+      border-bottom: 1.5px solid #a9773f;
+      min-height: 19px;
+    }
+
+    .task-header {
+      background: #8a5f33;
+      color: #fff;
+      border-radius: 3mm;
+      padding: 6px 12px;
+      font-size: 11.2pt;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .obs-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1.5px solid #e6cfa9;
+      margin-bottom: 8px;
+      font-size: 10pt;
+    }
+
+    .obs-table td {
+      padding: 5px 9px;
+      border-bottom: 1.5px solid #e6cfa9;
+    }
+
+    .obs-table tr:last-child td { border-bottom: none; }
+
+    .obs-table .label {
+      width: 31%;
+      font-weight: 700;
+      color: #8a5f33;
+      background: #f5e8d2;
+      white-space: nowrap;
+    }
+
+    .underline {
+      display: block;
+      border-bottom: 1.5px solid #a9773f;
+      min-height: 18px;
+    }
+
+    .check-grid {
+      display: grid;
+      gap: 5px 12px;
+      margin: 5px 0 3px;
+      font-size: 10pt;
+    }
+
+    .check-grid.col2 { grid-template-columns: 1fr 1fr; }
+    .check-grid.col1 { grid-template-columns: 1fr; }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      line-height: 1.38;
+    }
+
+    .chk {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border: 1.8px solid #8a5f33;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .answer-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .answer-line {
+      margin: 5px 0;
+      font-size: 10pt;
+    }
+
+    .box-draw {
+      border: 2px dashed #c4925a;
+      border-radius: 3mm;
+      min-height: 44mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d5b07c;
+      font-size: 10pt;
+      margin: 6px 0 8px;
+    }
+
+    .star-row {
+      font-size: 14pt;
+      letter-spacing: 3px;
+      color: #f0c060;
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .ws-footer {
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid #d5b07c;
+      font-size: 8.5pt;
+      color: #a07850;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @page { size: A4 portrait; margin: 14mm; }
+
+    @media print {
+      body { background: none; padding: 0; }
+      .sheet-wrap { box-shadow: none; margin: 0; max-width: 100%; border-radius: 0; }
+      .page {
+        min-height: 269mm;
+        padding: 11mm 12mm 10mm;
+      }
+      .page + .page { border-top: none; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+<div class="sheet-wrap">
+  <div class="page">
+    <div class="cover-hero">💎</div>
+    <h1 class="ws-title">Earth's Treasures Mission Worksheet</h1>
+    <h2 class="ws-subtitle">Mineral Explorers, Let's Go!</h2>
+
+    <div class="opening-box">
+      "You are not here just to do schoolwork today. You are here for a mission.<br>
+      Step into the Earth's Treasures gallery, look for clues, and unlock your explorer badge."
+    </div>
+
+    <div class="cover-fields">
+      <div class="cover-field"><label>Name:</label><div class="line"></div></div>
+      <div class="cover-field"><label>Date:</label><div class="line"></div></div>
+      <div class="cover-field"><label>Team Name:</label><div class="line"></div></div>
+    </div>
+
+    <div class="identity-box">
+      <div class="role">🪨 You are a Mineral Explorer</div>
+      <div style="font-size:10pt;color:#5a3c18;margin-bottom:5px;">
+        Your job is not to write down everything. Your job is to notice one amazing mineral, discover the secret of glowing rocks, and invent your own mineral hero.
+      </div>
+      <div style="font-size:10pt;font-weight:700;color:#8a5f33;margin-bottom:3px;">Today's mission goals:</div>
+      <ul class="goals">
+        <li><span class="goal-num">1</span>Find one especially unusual mineral</li>
+        <li><span class="goal-num">2</span>Discover why some minerals glow</li>
+        <li><span class="goal-num">3</span>Create your own mineral character</li>
+      </ul>
+    </div>
+
+    <div class="section-title"><span class="badge">★</span>Main Missions</div>
+    <div class="task-cards">
+      <div class="task-card">
+        <div class="num">1</div>
+        <div class="name">Find Clues</div>
+        <div class="desc">Choose one especially strange or beautiful mineral and record what you notice.</div>
+      </div>
+      <div class="task-card">
+        <div class="num">2</div>
+        <div class="name">Guess the Secret</div>
+        <div class="desc">Visit the glowing mineral room and work out why those rocks shine.</div>
+      </div>
+      <div class="task-card">
+        <div class="num">3</div>
+        <div class="name">Make a Treasure</div>
+        <div class="desc">Turn your favourite mineral into a character with a name and powers.</div>
+      </div>
+    </div>
+
+    <div class="box-tip">
+      <div class="tip-label">💡 Before You Start</div>
+      Look at four things first: <strong>color, shape, luster, and what it reminds you of</strong>. You do not have to be perfect. Brave guesses count.
+    </div>
+
+    <div class="box-gold">
+      <div style="font-size:10.8pt;font-weight:900;color:#b07800;margin-bottom:3px;">✨ Bonus Challenge</div>
+      Find one mineral that looks a little bit like a <strong>heart</strong>. If you find one, you unlock a secret achievement.
+    </div>
+
+    <div class="ws-footer">
+      <span>worksheet.bookwormtw.com</span>
+      <span>1 / 3</span>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="task-header">🔍 Mission 1 | Find the Most Unusual Mineral</div>
+
+    <div class="box-mission">
+      Walk through the gallery and find a mineral that feels the strangest, coolest, or least like an ordinary rock. Stop for one minute and really look.
+    </div>
+
+    <div class="section-title">📋 Observation Record</div>
+    <table class="obs-table">
+      <tbody>
+        <tr><td class="label">Color</td><td><span class="underline"></span></td></tr>
+        <tr><td class="label">Shape</td><td><span class="underline"></span></td></tr>
+        <tr><td class="label">It looks like...</td><td><span class="underline"></span></td></tr>
+        <tr><td class="label">Name</td><td><span class="underline"></span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box-check">
+      <div class="reason-label">It looks like this:</div>
+      <div class="check-grid col2">
+        <div class="check-item"><span class="chk"></span>Regular shape</div>
+        <div class="check-item"><span class="chk"></span>Irregular shape</div>
+        <div class="check-item"><span class="chk"></span>Transparent or translucent</div>
+        <div class="check-item"><span class="chk"></span>Sparkly</div>
+      </div>
+    </div>
+
+    <div class="box-reason">
+      <div class="reason-label">🔬 Make a guess: how hard do you think this mineral is?</div>
+      <div class="check-grid col1">
+        <div class="check-item"><span class="chk"></span>A. Very soft, maybe a fingernail could scratch it</div>
+        <div class="check-item"><span class="chk"></span>B. Medium hard</div>
+        <div class="check-item"><span class="chk"></span>C. Quite hard, like glass</div>
+        <div class="check-item"><span class="chk"></span>D. Extremely hard, like a gem champion</div>
+      </div>
+    </div>
+
+    <div class="task-header" style="background:#a06828;">💡 Mission 2 | Discover the Secret of Glowing Minerals</div>
+
+    <div class="box-mission">
+      Visit the fluorescent mineral dark room. Look carefully at the colors that appear under special light, then guess why the minerals glow.
+    </div>
+
+    <div class="section-title">📋 Observation Record</div>
+    <table class="obs-table">
+      <tbody>
+        <tr><td class="label">Glow color</td><td><span class="underline"></span></td></tr>
+        <tr><td class="label">It looks like...</td><td><span class="underline"></span></td></tr>
+        <tr><td class="label">What surprised me most</td><td><span class="underline"></span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box-reason">
+      <div class="reason-label">🧠 Why do you think it glows?</div>
+      <div class="check-grid col1">
+        <div class="check-item"><span class="chk"></span>A. Tiny light bulbs are hidden inside</div>
+        <div class="check-item"><span class="chk"></span>B. It absorbs UV light and gives off visible light</div>
+        <div class="check-item"><span class="chk"></span>C. It glows all day by itself</div>
+        <div class="check-item"><span class="chk"></span>D. Someone nearby secretly turned on a lamp</div>
+      </div>
+    </div>
+
+    <div class="ws-footer">
+      <span>worksheet.bookwormtw.com</span>
+      <span>2 / 3</span>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="task-header" style="background:#6b4020;">✨ Mission 3 | Create Your Own Mineral Hero</div>
+
+    <div class="box-mission">
+      Choose your favorite mineral and turn it into a character. It is not just a rock anymore. It is now a treasure guardian with special powers.
+    </div>
+
+    <div class="answer-pair">
+      <div class="answer-line"><label>This mineral is called:</label><div class="line"></div></div>
+      <div class="answer-line"><label>My new name for it:</label><div class="line"></div></div>
+    </div>
+
+    <div class="box-check" style="margin-bottom:7px;">
+      <div class="reason-label">Its power is:</div>
+      <div class="check-grid col2">
+        <div class="check-item"><span class="chk"></span>Lights the way</div>
+        <div class="check-item"><span class="chk"></span>Changes color to hide</div>
+        <div class="check-item"><span class="chk"></span>Protects explorers</div>
+        <div class="check-item"><span class="chk"></span>Stores energy</div>
+        <div class="check-item"><span class="chk"></span>Brings good luck</div>
+        <div class="check-item"><span class="chk"></span>I invented one: <span class="line" style="min-width:46px;"></span></div>
+      </div>
+    </div>
+
+    <div class="box-draw">Draw your mineral character here</div>
+
+    <div class="answer-line" style="margin-bottom:9px;">
+      <label>The coolest thing about this character:</label><div class="line"></div>
+    </div>
+
+    <div class="section-title"><span class="badge badge-q">Q</span>Mission Quiz</div>
+
+    <div class="box-reason" style="margin-bottom:7px;">
+      <div class="reason-label">Q1. Which one is usually the hardest?</div>
+      <div class="check-grid col2">
+        <div class="check-item"><span class="chk"></span>A. Gypsum</div>
+        <div class="check-item"><span class="chk"></span>B. Quartz</div>
+        <div class="check-item"><span class="chk"></span>C. Diamond</div>
+        <div class="check-item"><span class="chk"></span>D. Fingernail</div>
+      </div>
+    </div>
+
+    <div class="box-reason" style="margin-bottom:9px;">
+      <div class="reason-label">Q2. How do minerals usually form?</div>
+      <div class="check-grid col1">
+        <div class="check-item"><span class="chk"></span>A. They suddenly appear in one day</div>
+        <div class="check-item"><span class="chk"></span>B. They form slowly over a very long time</div>
+        <div class="check-item"><span class="chk"></span>C. Factories make them directly</div>
+        <div class="check-item"><span class="chk"></span>D. They appear whenever it rains</div>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="badge">🏅</span>Achievement Unlock</div>
+    <div class="box-gold">
+      <div class="achievement-title">Today's Achievements</div>
+      <div class="check-grid col1" style="gap:6px;">
+        <div class="check-item"><span class="chk"></span>I found a mineral that really stayed in my memory</div>
+        <div class="check-item"><span class="chk"></span>I finished all of my observation notes</div>
+        <div class="check-item"><span class="chk"></span>I gave a mineral a new name and power</div>
+        <div class="check-item"><span class="chk"></span>I found a specially shaped mineral and learned its name</div>
+      </div>
+      <div class="star-row">⭐⭐⭐⭐⭐</div>
+    </div>
+
+    <div class="ws-footer">
+      <span>worksheet.bookwormtw.com</span>
+      <span>3 / 3</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

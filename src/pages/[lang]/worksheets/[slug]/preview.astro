@@ -2,13 +2,14 @@
 import { getCollection, render } from 'astro:content';
 import type { Lang } from '../../../../i18n/ui';
 import { t } from '../../../../i18n/ui';
+import { discoverWorksheetStyles } from '../../../../lib/worksheet-styles';
 
 export async function getStaticPaths() {
   const worksheets = await getCollection('worksheets');
   return worksheets.map((w) => ({
     params: {
       lang: w.data.lang,
-      slug: w.data.slug.replace(/-en$/, ''),
+      slug: w.data.worksheetSlug,
     },
     props: { worksheet: w },
   }));
@@ -20,6 +21,11 @@ const { Content } = await render(worksheet);
 
 const allTopics = await getCollection('topics', (t) => t.data.lang === lang);
 const topic = allTopics.find((t) => t.id === worksheet.data.topic.id);
+const styles = discoverWorksheetStyles({
+  slug: worksheet.data.worksheetSlug,
+  lang,
+  overrides: worksheet.data.styles,
+});
 
 const formattedDate = new Intl.DateTimeFormat(lang === 'zh' ? 'zh-TW' : 'en-US', {
   year: 'numeric', month: 'long', day: 'numeric',
@@ -84,7 +90,14 @@ const formattedDate = new Intl.DateTimeFormat(lang === 'zh' ? 'zh-TW' : 'en-US',
       .cover-grade { font-size: 11pt; color: #8a5f33; background: #f3e8d5; padding: 4px 14px; border-radius: 99px; }
       .cover-desc  { font-size: 11pt; color: #6b4a2a; line-height: 1.6; max-width: 150mm; }
       .cover-date  { font-size: 9pt; color: #a9773f; }
-      .cover-pdf   {
+      .cover-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        max-width: 150mm;
+      }
+      .cover-link {
         display: inline-block;
         background: #8a5f33; color: #fff;
         font-size: 11pt; padding: 8px 22px;
@@ -158,8 +171,14 @@ const formattedDate = new Intl.DateTimeFormat(lang === 'zh' ? 'zh-TW' : 'en-US',
         <h1 class="cover-title">{worksheet.data.title}</h1>
         <div class="cover-grade">{t(lang, `grade.${worksheet.data.grade}` as `grade.lower`)}</div>
         <p class="cover-desc">{worksheet.data.description}</p>
-        {worksheet.data.pdf && (
-          <a class="cover-pdf" href={worksheet.data.pdf}>⬇ {t(lang, 'worksheet.download_pdf')}</a>
+        {styles.length > 0 && (
+          <div class="cover-links">
+            {styles.map((style) => (
+              <a class="cover-link" href={style.previewHtml}>
+                {style.label}
+              </a>
+            ))}
+          </div>
         )}
         <div class="cover-date">{t(lang, 'worksheet.updated')}: {formattedDate}</div>
       </div>
@@ -201,7 +220,7 @@ const formattedDate = new Intl.DateTimeFormat(lang === 'zh' ? 'zh-TW' : 'en-US',
     <!-- Toolbar -->
     <div class="toolbar">
       <button onclick="window.print()">🖨 {lang === 'zh' ? '列印' : 'Print'}</button>
-      <a href={`/${lang}/worksheets/${worksheet.data.slug.replace(/-en$/, '')}`}>
+      <a href={`/${lang}/worksheets/${worksheet.data.worksheetSlug}`}>
         ✕ {lang === 'zh' ? '關閉' : 'Close'}
       </a>
     </div>

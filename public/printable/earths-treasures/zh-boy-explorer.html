@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>大地瑰寶學習單｜男孩探險版</title>
+  <style>
+    @page { size: A4 portrait; margin: 14mm 14mm 18mm 14mm; }
+
+    :root {
+      --ink: #243447;
+      --muted: #5e738b;
+      --primary: #3e5a7a;
+      --secondary: #5c7390;
+      --soft-blue: #9bb2c8;
+      --paper-bg: #e6edf4;
+      --hero-bg: #eef2f7;
+      --card-bg: #ffffff;
+      --line: #c8d4e0;
+      --section-bg: #f7fafe;
+      --challenge-bg: #fff6e0;
+      --challenge-border: #e8c877;
+      --hint-bg: #edf4fb;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      font-family: "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.55;
+      background: var(--paper-bg);
+    }
+
+    body {
+      padding: 22px 14px 36px;
+    }
+
+    .sheet {
+      max-width: 210mm;
+      margin: 0 auto;
+    }
+
+    .page {
+      background: #fff;
+      box-shadow: 0 16px 38px rgba(40, 62, 92, 0.15);
+      border-radius: 18px;
+      padding: 14mm 14mm 12mm;
+      margin: 0 auto 20px;
+      break-after: page;
+      page-break-after: always;
+    }
+
+    .page:last-of-type {
+      break-after: auto;
+      page-break-after: auto;
+    }
+
+    .hero,
+    .section-card,
+    .hardness-card,
+    .wish-card,
+    .observation-block,
+    .challenge-box,
+    .favorite-card,
+    .drawing-card,
+    .quiz-card,
+    .reflection-card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    .hero {
+      background: var(--hero-bg);
+      border: 2px solid #d9e4ee;
+      border-radius: 22px;
+      padding: 16px 20px 18px;
+      text-align: center;
+    }
+
+    .hero-emoji {
+      font-size: 42px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      font-size: 30px;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+      color: var(--primary);
+    }
+
+    .hero .subtitle {
+      margin-top: 6px;
+      font-size: 15px;
+      color: var(--secondary);
+    }
+
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+
+    .field-line {
+      flex: 1;
+      border-bottom: 1.8px solid var(--secondary);
+      min-height: 18px;
+    }
+
+    .section-card,
+    .hardness-card,
+    .wish-card,
+    .challenge-box,
+    .favorite-card,
+    .drawing-card,
+    .quiz-card,
+    .reflection-card {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: var(--card-bg);
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 17px;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+
+    .body-copy {
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .body-copy strong {
+      color: var(--primary);
+    }
+
+    .hardness-card {
+      background: var(--section-bg);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    th, td {
+      border: 1px solid #d4dee8;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #dfeaf4;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .wish-card {
+      background: #f7fbff;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px 18px;
+      margin-top: 6px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .box {
+      width: 15px;
+      height: 15px;
+      border: 2px solid var(--secondary);
+      border-radius: 4px;
+      flex: 0 0 auto;
+      margin-top: 2px;
+      background: #fff;
+    }
+
+    .helper {
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--hint-bg);
+      color: var(--secondary);
+      font-size: 13px;
+    }
+
+    .observation-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .observation-block {
+      display: grid;
+      grid-template-columns: 50mm 1fr;
+      gap: 12px;
+      padding: 12px;
+      border: 1.8px solid #d5e0ea;
+      border-radius: 16px;
+      background: #fbfdff;
+    }
+
+    .observation-label {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #edf4fb;
+    }
+
+    .observation-label .zone {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .observation-label .prompt {
+      font-size: 12.5px;
+      color: var(--secondary);
+    }
+
+    .notes {
+      min-height: 18mm;
+      padding-top: 4px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 8mm,
+        rgba(92, 115, 144, 0.28) 8mm,
+        rgba(92, 115, 144, 0.28) 8.5mm
+      );
+    }
+
+    .challenge-box {
+      border-color: var(--challenge-border);
+      background: var(--challenge-bg);
+    }
+
+    .inline-line {
+      display: inline-block;
+      min-width: 120px;
+      border-bottom: 1.8px solid var(--secondary);
+      min-height: 18px;
+      vertical-align: middle;
+    }
+
+    .favorite-fields {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .favorite-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .favorite-line .line {
+      flex: 1;
+      border-bottom: 1.8px solid var(--secondary);
+      min-height: 18px;
+    }
+
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .drawing-card {
+      background: #f8fbff;
+    }
+
+    .draw-box {
+      min-height: 50mm;
+      margin-top: 8px;
+      border: 2px dashed var(--soft-blue);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(243,248,252,0.88));
+      padding: 12px;
+    }
+
+    .draw-hint {
+      color: #9caec1;
+      font-size: 13px;
+    }
+
+    .quiz-card {
+      background: #fcfdff;
+    }
+
+    .quiz-card h3 {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .question {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: #f5f9fd;
+      border: 1.5px solid #dce7f0;
+    }
+
+    .question-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .answer-lines {
+      min-height: 10mm;
+      margin-bottom: 6px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 8mm,
+        rgba(92, 115, 144, 0.28) 8mm,
+        rgba(92, 115, 144, 0.28) 8.5mm
+      );
+    }
+
+    .reference {
+      font-size: 11px;
+      color: #6b7d90;
+      border-left: 4px solid var(--soft-blue);
+      padding-left: 10px;
+      line-height: 1.4;
+    }
+
+    .reflection-box {
+      min-height: 14mm;
+      margin-top: 8px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 8mm,
+        rgba(92, 115, 144, 0.28) 8mm,
+        rgba(92, 115, 144, 0.28) 8.5mm
+      );
+    }
+
+    .footer {
+      margin-top: 10mm;
+      padding-top: 4mm;
+      border-top: 1px solid #d5dfe8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .screen-print-hint {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media print {
+      html, body {
+        background: #fff;
+      }
+
+      body {
+        padding: 0;
+      }
+
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0;
+      }
+
+      .screen-print-hint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="page">
+      <div class="hero">
+        <div class="hero-emoji">💎</div>
+        <h1>大地瑰寶學習單</h1>
+        <p class="subtitle">走進台中科博館的礦物世界</p>
+        <div class="name-row">
+          <div class="field"><span>我的名字</span><span class="field-line"></span></div>
+          <div class="field"><span>參觀日期</span><span class="field-line"></span></div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>🪨 礦物是什麼？</h2>
+        <p class="body-copy">
+          礦物是天然形成的固體，具有固定的化學成分與規則的晶體結構。
+          同一種礦物，不管在臺灣、巴西或月球，晶體結構與化學成分都相同。
+          今天你會在科博館看到逾 1,700 件礦物，它們都是地球給我們的禮物。
+        </p>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>1</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+
+    <section class="page">
+      <div class="hardness-card">
+        <h3>📏 莫氏硬度對照小卡（身邊的東西怎麼比？）</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>硬度</th>
+              <th>代表礦物</th>
+              <th>身邊的東西</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>滑石</td><td>指甲能輕鬆刮下</td></tr>
+            <tr><td>2</td><td>石膏</td><td>指甲（約 2.5）剛好刮得動</td></tr>
+            <tr><td>3</td><td>方解石</td><td>十元硬幣（約 3.5）</td></tr>
+            <tr><td>5</td><td>磷灰石</td><td>玻璃（約 5.5）</td></tr>
+            <tr><td>7</td><td>石英、紫水晶</td><td>小刀也刮不動</td></tr>
+            <tr><td>10</td><td>鑽石</td><td>地球上最硬的礦物</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="wish-card">
+        <h3>👀 今天我最想看到的（勾 3 個）</h3>
+        <div class="check-grid">
+          <div class="check-item"><span class="box"></span><span>巨大紫水晶洞</span></div>
+          <div class="check-item"><span class="box"></span><span>會發光的螢光礦物</span></div>
+          <div class="check-item"><span class="box"></span><span>北投石（臺灣寶藏）</span></div>
+          <div class="check-item"><span class="box"></span><span>5 噸重的鐘乳石林</span></div>
+          <div class="check-item"><span class="box"></span><span>阿波羅 11 號月岩</span></div>
+          <div class="check-item"><span class="box"></span><span>閃玉（花蓮豐田產）</span></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>2</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+
+    <section class="page">
+      <div class="section-card">
+        <h2>🔎 展區觀察筆記</h2>
+        <p class="body-copy">
+          走到每個單元前，停下來看 1 分鐘，寫下你觀察到的：顏色、形狀、大小、像什麼？
+        </p>
+      </div>
+
+      <div class="observation-list">
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">① 礦物演化</div>
+            <div class="prompt">找找看入口高達 290 公分的「帶狀鐵岩」，它記錄了地球從沒有氧氣，變成有氧氣的故事。</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">② 晶體對稱之美</div>
+            <div class="prompt">礦物晶體有立方、六角、菱形……等形狀。挑一顆你覺得最對稱的，寫下它的名字。</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">③ 晶體色澤之美</div>
+            <div class="prompt">別錯過那塊 1,700 公斤的螢光礦物！短波紫外線下，矽鋅礦發鮮綠色，方解石發豔紅色。</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>3</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+
+    <section class="page">
+      <div class="section-card">
+        <h2>🔎 展區觀察筆記</h2>
+        <p class="body-copy">
+          再選兩個你最有感覺的單元，繼續留下觀察紀錄。
+        </p>
+      </div>
+
+      <div class="observation-list">
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">④ 臺灣寶藏</div>
+            <div class="prompt">北投石、閃玉（花蓮豐田產）和九份自然金都在這區。北投石是少數以臺灣地名命名的礦物。</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">⑤ 世界礦區</div>
+            <div class="prompt">找找看那顆心形的大紫水晶簇（重達 1,598 公斤），還有來自巴西、印度的壯觀晶體。</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+      </div>
+
+      <div class="challenge-box">
+        <h3>🔎 小挑戰</h3>
+        <p class="body-copy">在整個展場找一顆「看起來像愛心」的礦物，把它寫下來：<span class="inline-line"></span></p>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>4</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+
+    <section class="page">
+      <div class="favorite-card">
+        <h2>💙 我今天最愛的一顆礦物</h2>
+        <div class="favorite-fields">
+          <div class="favorite-line"><span>它的名字：</span><span class="line"></span></div>
+          <div class="split-row">
+            <div class="favorite-line"><span>產地：</span><span class="line"></span></div>
+            <div class="favorite-line"><span>莫氏硬度：</span><span class="line"></span></div>
+          </div>
+          <div class="favorite-line"><span>我喜歡它的原因：</span><span class="line"></span></div>
+        </div>
+      </div>
+
+      <div class="drawing-card">
+        <h3>✏️ 把它畫下來</h3>
+        <div class="draw-box">
+          <div class="draw-hint">在這裡畫</div>
+        </div>
+      </div>
+
+      <div class="quiz-card">
+        <h3>🧠 冷知識小考</h3>
+
+        <div class="question">
+          <div class="question-title">Q1. 北投石為什麼對臺灣很特別？</div>
+          <div class="answer-lines"></div>
+          <div class="reference">
+            全球只在臺北北投與日本秋田縣玉川兩地被發現，是少數以臺灣地名命名的礦物。
+            主成分為硫酸鋇與硫酸鉛，放射性來自所含的鐳元素。
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="question-title">Q2. 螢光礦物為什麼會發光？</div>
+          <div class="answer-lines"></div>
+          <div class="reference">
+            吸收紫外線等高能量光後，以可見光的形式把能量釋放出來，這就是螢光。
+          </div>
+        </div>
+
+        <div class="question">
+          <div class="question-title">Q3. 科博館的月岩是怎麼來的？</div>
+          <div class="answer-lines"></div>
+          <div class="reference">
+            1969 年阿波羅 11 號任務帶回月球樣本後，美國贈予中華民國；
+            1994 年由中研院轉交科博館永久典藏，附有尼克森總統署名認證書。
+          </div>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <h3>💬 離館前，用一句話描述今天的感受</h3>
+        <div class="reflection-box"></div>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>5</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+  </main>
+</body>
+</html>

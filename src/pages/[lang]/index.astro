@@ -73,7 +73,7 @@ const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {featured.map((w) => {
         const topic = topicMap.get(w.data.topic.id);
-        const cleanSlug = w.data.slug.replace(/-en$/, '');
+        const cleanSlug = w.data.worksheetSlug;
         return (
           <WorksheetCard
             lang={lang}

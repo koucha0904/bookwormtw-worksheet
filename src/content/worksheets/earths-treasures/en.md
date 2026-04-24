@@ -5,8 +5,7 @@ topic: minerals-en
 tags: [Minerals, Museum, NMNS, Taichung, Earth Science, Observation]
 grade: upper
 lang: en
-slug: earths-treasures-en
-pdf: /pdfs/earths-treasures-en.pdf
+worksheetSlug: earths-treasures
 coverEmoji: 💎
 coverColor: "#eef2f7"
 translationOf: earths-treasures

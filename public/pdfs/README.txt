@@ -1,10 +1,14 @@
-Placeholder folder for worksheet PDFs.
+Worksheet PDFs live in per-theme folders.
 
-Expected files for the seeded demo content:
-  finland-zh.pdf      finland-en.pdf
-  japan-zh.pdf        japan-en.pdf
-  australia-zh.pdf    australia-en.pdf
-  amethyst-zh.pdf     amethyst-en.pdf
+Expected structure:
+  /pdfs/earths-treasures/zh-mission-journal.pdf
+  /pdfs/earths-treasures/zh-adventure-guide.pdf
+  /pdfs/earths-treasures/en-mission-journal.pdf
+  /pdfs/earths-treasures/en-adventure-guide.pdf
+  /pdfs/finland/zh-mission-journal.pdf
+  /pdfs/finland/en-adventure-guide.pdf
 
-Drop real PDFs here with these exact filenames and the download buttons will
-serve them automatically (the frontmatter already references these paths).
+Rule:
+  Put every PDF for one theme in the same folder and include both the language and style in the filename.
+
+Use `npm run audit:worksheets` to check which required HTML files are missing and which PDFs are still optional warnings.

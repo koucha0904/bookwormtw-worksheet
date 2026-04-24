@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { lang, slug, title, description, grade, coverEmoji, coverColor, topicTitle } = Astro.props;
-const href = localizedPath(lang, `/worksheets/${slug.replace(/-en$/, '')}`);
+const href = localizedPath(lang, `/worksheets/${slug}`);
 ---
 
 <a href={href} class="group block rounded-2xl overflow-hidden bg-white border border-brand-100 hover:border-brand-300 hover:shadow-lg transition">

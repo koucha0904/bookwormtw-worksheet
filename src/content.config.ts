@@ -1,6 +1,15 @@
 import { defineCollection, reference, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const worksheetStyleOverride = z.object({
+  id: z.string(),
+  label: z.string().optional(),
+  description: z.string().optional(),
+  order: z.number().optional(),
+  previewHtml: z.string().optional(),
+  pdf: z.string().optional(),
+});
+
 const worksheets = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/worksheets' }),
   schema: z.object({
@@ -10,9 +19,8 @@ const worksheets = defineCollection({
     tags: z.array(z.string()).default([]),
     grade: z.enum(['lower', 'middle', 'upper', 'all']).default('all'),
     lang: z.enum(['zh', 'en']),
-    slug: z.string(),
-    pdf: z.string().optional(),
-    previewHtml: z.string().optional(),
+    worksheetSlug: z.string(),
+    styles: z.array(worksheetStyleOverride).default([]),
     coverEmoji: z.string().default('📘'),
     coverColor: z.string().default('#f3e8d5'),
     translationOf: z.string().optional(),

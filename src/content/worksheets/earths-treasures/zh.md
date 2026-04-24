@@ -5,11 +5,10 @@ topic: minerals
 tags: [礦石, 博物館, 科博館, 大地瑰寶, 地球科學, 觀察]
 grade: upper
 lang: zh
-slug: earths-treasures
-pdf: /pdfs/earths-treasures-zh.pdf
+worksheetSlug: earths-treasures
 coverEmoji: 💎
 coverColor: "#eef2f7"
-translationOf: earths-treasures-en
+translationOf: earths-treasures
 publishedAt: 2026-04-22
 featured: true
 faq:
