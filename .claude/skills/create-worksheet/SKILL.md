@@ -519,6 +519,134 @@ For English version: `lang="en"`, screen-only hint in English, footer `"Bookworm
 
 ---
 
+## SVG icon library
+
+All icons live in `public/icons/preview.html` for browsing. Open that file in a browser to see the full library visually. When building a printable worksheet, copy the `<svg>…</svg>` block directly into HTML — no external files needed, prints crisply.
+
+**Available icons by ID:**
+
+| ID | Description | Best used for |
+|---|---|---|
+| `star-badge` | Gold star medal | Achievement unlock |
+| `done-badge` | Green checkmark badge | Completion achievement |
+| `challenge-star` | Large 8-point star | Star/challenge achievement |
+| `explore-badge` | Pentagon + magnifier | Explore achievement |
+| `magnifier` | Magnifying glass with crystal inside | Observe activity heading |
+| `pencil` | Pencil icon | Write/record activity |
+| `think` | Brain with gear | Judge/decide activity |
+| `create` | Magic wand + sparkles | Creative activity |
+| `question` | Speech bubble with ? | Quiz / question block |
+| `observe` | Eye icon | Observation block |
+| `globe` | Earth with continents | Country / world topics |
+| `crystal` | Faceted gemstone | Minerals topic |
+| `compass` | Compass rose | Explore / travel topics |
+| `explorer-hat` | Safari/explorer hat | Travel / fieldwork topics |
+| `crystal-buddy` | Crystal with face | Minerals mascot buddy |
+| `owl-buddy` | Owl with glasses | General mascot buddy |
+| `mission-frame` | Dashed border with corner gems | Mission briefing box |
+| `mohs-scale` | Hardness bar chart 1–9 | Minerals worksheet only |
+
+**Usage pattern** — set size via inline style or CSS:
+```html
+<!-- 48×48px inline in a heading or activity box -->
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:48px;height:48px;vertical-align:middle">
+  ...paste SVG contents here...
+</svg>
+```
+
+**Key SVG snippets for the most common use-cases:**
+
+### crystal-buddy (礦石精靈 mascot)
+```html
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:56px;height:56px">
+  <path d="M32 8 L50 24 L44 52 L20 52 L14 24 Z" fill="#d5b07c" stroke="#8a5f33" stroke-width="2.5"/>
+  <path d="M32 8 L50 24 L36 26 Z" fill="white" opacity="0.35"/>
+  <circle cx="26" cy="33" r="4" fill="white" stroke="#8a5f33" stroke-width="1.5"/>
+  <circle cx="38" cy="33" r="4" fill="white" stroke="#8a5f33" stroke-width="1.5"/>
+  <circle cx="27" cy="33" r="2" fill="#2f2018"/>
+  <circle cx="39" cy="33" r="2" fill="#2f2018"/>
+  <path d="M25 42 Q32 47 39 42" fill="none" stroke="#8a5f33" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="28" cy="32" r="1" fill="white"/>
+  <circle cx="40" cy="32" r="1" fill="white"/>
+</svg>
+```
+
+### owl-buddy (貓頭鷹教授 mascot)
+```html
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:56px;height:56px">
+  <ellipse cx="32" cy="40" rx="18" ry="20" fill="#d5b07c" stroke="#8a5f33" stroke-width="2.5"/>
+  <circle cx="32" cy="22" r="16" fill="#c4925a" stroke="#8a5f33" stroke-width="2.5"/>
+  <path d="M20 10 L17 4 L24 9" fill="#c4925a" stroke="#8a5f33" stroke-width="2"/>
+  <path d="M44 10 L47 4 L40 9" fill="#c4925a" stroke="#8a5f33" stroke-width="2"/>
+  <circle cx="26" cy="22" r="6" fill="white" stroke="#8a5f33" stroke-width="2"/>
+  <circle cx="38" cy="22" r="6" fill="white" stroke="#8a5f33" stroke-width="2"/>
+  <circle cx="26" cy="22" r="7" fill="none" stroke="#8a5f33" stroke-width="1.5"/>
+  <circle cx="38" cy="22" r="7" fill="none" stroke="#8a5f33" stroke-width="1.5"/>
+  <line x1="33" y1="22" x2="31" y2="22" stroke="#8a5f33" stroke-width="1.5"/>
+  <circle cx="27" cy="22" r="3" fill="#2f2018"/>
+  <circle cx="39" cy="22" r="3" fill="#2f2018"/>
+  <circle cx="28" cy="21" r="1" fill="white"/>
+  <circle cx="40" cy="21" r="1" fill="white"/>
+  <path d="M32 26 L29 30 L35 30 Z" fill="#f0a030"/>
+</svg>
+```
+
+### star-badge (achievement — star)
+```html
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px">
+  <circle cx="32" cy="32" r="28" fill="#fffbf0" stroke="#c4925a" stroke-width="3"/>
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#d5b07c" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <path d="M32 13 L35.9 24.5 H48.1 L38.1 31.5 L42 43 L32 36 L22 43 L25.9 31.5 L15.9 24.5 H28.1 Z"
+        fill="#f0c060" stroke="#c4925a" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>
+```
+
+### done-badge (achievement — completed)
+```html
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px">
+  <circle cx="32" cy="32" r="28" fill="#f0f9f0" stroke="#6a9a5a" stroke-width="3"/>
+  <circle cx="32" cy="32" r="20" fill="#d4ecd4" stroke="#6a9a5a" stroke-width="1.5"/>
+  <path d="M20 32 L28 40 L44 24" stroke="#3a7a3a" stroke-width="4" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+```
+
+### crystal (礦石晶體 — inline decoration)
+```html
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="width:48px;height:48px">
+  <path d="M32 6 L52 26 L44 56 L20 56 L12 26 Z" fill="#d5b07c" stroke="#8a5f33" stroke-width="2.5"/>
+  <path d="M32 6 L52 26 L32 30 Z" fill="white" opacity="0.35"/>
+  <path d="M32 6 L12 26 L32 30 Z" fill="#8a5f33" opacity="0.2"/>
+  <path d="M22 16 L30 8" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="24" cy="20" r="2" fill="white" opacity="0.6"/>
+</svg>
+```
+
+### mission-frame (任務框 border)
+```html
+<!-- Use as a wrapper around mission text — scale viewBox width to your content -->
+<svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+  <rect x="3" y="3" width="114" height="54" rx="6" fill="#fffbf0" stroke="#c4925a" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <path d="M10 6 L14 10 L10 14 L6 10 Z" fill="#d5b07c"/>
+  <path d="M110 6 L114 10 L110 14 L106 10 Z" fill="#d5b07c"/>
+  <path d="M10 54 L14 50 L10 46 L6 50 Z" fill="#d5b07c"/>
+  <path d="M110 54 L114 50 L110 46 L106 50 Z" fill="#d5b07c"/>
+</svg>
+```
+
+**Icon placement tip** — float a buddy to the right of a section heading:
+```html
+<div style="display:flex; align-items:flex-start; gap:8mm; margin-bottom:4mm;">
+  <div style="flex:1">
+    <h2>🔍 任務一：觀察礦石</h2>
+    <p>仔細觀察...</p>
+  </div>
+  <!-- crystal-buddy SVG here, width:48px -->
+</div>
+```
+
+---
+
 ## Step 7 — Print verification checklist (do before reporting done)
 
 Estimate each page's height by summing block sizes from the content budget table. For each `.page`:

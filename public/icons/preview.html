@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>書蟲學習單 · SVG 圖示庫</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #f3e8d5; padding: 32px; color: #2f2018; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  p { color: #8a5f33; margin-bottom: 24px; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, 140px); gap: 16px; }
+  .card {
+    background: white; border-radius: 12px; padding: 20px 12px 12px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .card svg { width: 64px; height: 64px; }
+  .card-label { font-size: 12px; color: #8a5f33; text-align: center; }
+  .card-id { font-size: 10px; color: #c4925a; font-family: monospace; }
+  h2 { margin: 32px 0 12px; font-size: 16px; color: #6b4a2a; border-bottom: 2px dashed #d5b07c; padding-bottom: 6px; }
+</style>
+</head>
+<body>
+<h1>📚 書蟲學習單 SVG 圖示庫</h1>
+<p>所有圖示均為純 SVG，可 inline 進 HTML，無需外部檔案，列印清晰不模糊。</p>
+
+<h2>🏅 成就 / 勛章</h2>
+<div class="grid">
+
+  <div class="card">
+    <!-- 金星勛章 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="28" fill="#fffbf0" stroke="#c4925a" stroke-width="3"/>
+      <circle cx="32" cy="32" r="22" fill="none" stroke="#d5b07c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <path d="M32 13 L35.9 24.5 H48.1 L38.1 31.5 L42 43 L32 36 L22 43 L25.9 31.5 L15.9 24.5 H28.1 Z"
+            fill="#f0c060" stroke="#c4925a" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+    <div class="card-label">金星勛章</div>
+    <div class="card-id">star-badge</div>
+  </div>
+
+  <div class="card">
+    <!-- 完成勛章 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="28" fill="#f0f9f0" stroke="#6a9a5a" stroke-width="3"/>
+      <circle cx="32" cy="32" r="20" fill="#d4ecd4" stroke="#6a9a5a" stroke-width="1.5"/>
+      <path d="M20 32 L28 40 L44 24" stroke="#3a7a3a" stroke-width="4" fill="none"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="card-label">完成勛章</div>
+    <div class="card-id">done-badge</div>
+  </div>
+
+  <div class="card">
+    <!-- 挑戰星 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 4 L38 20 L56 20 L42 30 L48 46 L32 36 L16 46 L22 30 L8 20 L26 20 Z"
+            fill="#f0c060" stroke="#c4925a" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M28 16 L32 6 L35 16" stroke="white" stroke-width="2" fill="none" opacity="0.7" stroke-linecap="round"/>
+    </svg>
+    <div class="card-label">挑戰星</div>
+    <div class="card-id">challenge-star</div>
+  </div>
+
+  <div class="card">
+    <!-- 探索徽章 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <!-- Pentagon badge -->
+      <path d="M32 4 L58 22 L48 54 L16 54 L6 22 Z" fill="#f3e8d5" stroke="#c4925a" stroke-width="3"/>
+      <path d="M32 12 L52 26 L44 48 L20 48 L12 26 Z" fill="none" stroke="#d5b07c" stroke-width="1.5"/>
+      <!-- Magnifying glass -->
+      <circle cx="32" cy="28" r="9" fill="none" stroke="#8a5f33" stroke-width="2.5"/>
+      <line x1="38" y1="34" x2="44" y2="40" stroke="#8a5f33" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div class="card-label">探索徽章</div>
+    <div class="card-id">explore-badge</div>
+  </div>
+
+</div>
+
+<h2>🔍 活動圖示</h2>
+<div class="grid">
+
+  <div class="card">
+    <!-- 放大鏡 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="26" cy="26" r="19" fill="#f3e8d5" stroke="#8a5f33" stroke-width="3.5"/>
+      <circle cx="26" cy="26" r="13" fill="#e6d4b8" stroke="#c4925a" stroke-width="1.5"/>
+      <!-- Crystal inside -->
+      <path d="M26 16 L33 24 L26 34 L19 24 Z" fill="#c4925a" opacity="0.8"/>
+      <path d="M26 16 L33 24 L26 26 Z" fill="white" opacity="0.4"/>
+      <!-- Handle -->
+      <line x1="39" y1="39" x2="55" y2="55" stroke="#8a5f33" stroke-width="5.5" stroke-linecap="round"/>
+      <line x1="38" y1="40" x2="52" y2="54" stroke="#c4925a" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div class="card-label">放大鏡</div>
+    <div class="card-id">magnifier</div>
+  </div>
+
+  <div class="card">
+    <!-- 鉛筆 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <g transform="rotate(-30, 32, 32)">
+        <rect x="24" y="6" width="16" height="6" rx="2" fill="#e8a0a0" stroke="#8a5f33" stroke-width="2"/>
+        <rect x="24" y="12" width="16" height="34" fill="#f5e090" stroke="#8a5f33" stroke-width="2"/>
+        <line x1="24" y1="28" x2="40" y2="28" stroke="#c4925a" stroke-width="1.5" opacity="0.5"/>
+        <path d="M24 46 L32 58 L40 46 Z" fill="#f0d090" stroke="#8a5f33" stroke-width="2"/>
+        <path d="M28 52 L32 58 L36 52 Z" fill="#2f2018" opacity="0.8"/>
+      </g>
+    </svg>
+    <div class="card-label">鉛筆</div>
+    <div class="card-id">pencil</div>
+  </div>
+
+  <div class="card">
+    <!-- 腦袋思考 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 40 C10 38 8 26 14 20 C16 10 28 8 36 14 C44 10 52 18 48 28 C52 34 50 42 42 44 L42 54 L22 54 L22 44 Z"
+            fill="#f3e8d5" stroke="#8a5f33" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- Gear lines inside head -->
+      <circle cx="32" cy="30" r="8" fill="none" stroke="#c4925a" stroke-width="2"/>
+      <line x1="32" y1="20" x2="32" y2="22" stroke="#c4925a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="32" y1="38" x2="32" y2="40" stroke="#c4925a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="22" y1="30" x2="24" y2="30" stroke="#c4925a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="40" y1="30" x2="42" y2="30" stroke="#c4925a" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div class="card-label">思考判斷</div>
+    <div class="card-id">think</div>
+  </div>
+
+  <div class="card">
+    <!-- 創作魔法棒 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <!-- Wand -->
+      <line x1="12" y1="52" x2="44" y2="20" stroke="#8a5f33" stroke-width="4" stroke-linecap="round"/>
+      <!-- Star tip -->
+      <path d="M44 12 L46 19 L53 19 L47.5 23.5 L49.5 30.5 L44 26 L38.5 30.5 L40.5 23.5 L35 19 L42 19 Z"
+            fill="#f0c060" stroke="#c4925a" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- Sparkles -->
+      <circle cx="20" cy="20" r="2.5" fill="#f0c060"/>
+      <circle cx="50" cy="44" r="2" fill="#f0c060"/>
+      <path d="M28 12 L29 16 L32 12 L29 8 Z" fill="#c4925a"/>
+      <path d="M56 36 L58 40 L56 38 L54 40 Z" fill="#c4925a"/>
+    </svg>
+    <div class="card-label">創作</div>
+    <div class="card-id">create</div>
+  </div>
+
+  <div class="card">
+    <!-- 問號泡泡 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 8 H52 Q58 8 58 14 V40 Q58 46 52 46 H36 L24 56 L24 46 H14 Q8 46 8 40 V14 Q8 8 14 8 Z"
+            fill="#f3e8d5" stroke="#c4925a" stroke-width="3"/>
+      <text x="32" y="38" text-anchor="middle" font-family="system-ui" font-size="28" font-weight="bold" fill="#8a5f33">?</text>
+    </svg>
+    <div class="card-label">問題</div>
+    <div class="card-id">question</div>
+  </div>
+
+  <div class="card">
+    <!-- 眼睛觀察 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <!-- Eye outline -->
+      <path d="M8 32 Q32 10 56 32 Q32 54 8 32 Z" fill="#f3e8d5" stroke="#8a5f33" stroke-width="3"/>
+      <!-- Iris -->
+      <circle cx="32" cy="32" r="10" fill="#c4925a"/>
+      <!-- Pupil -->
+      <circle cx="32" cy="32" r="5" fill="#2f2018"/>
+      <!-- Shine -->
+      <circle cx="35" cy="29" r="2.5" fill="white"/>
+    </svg>
+    <div class="card-label">觀察</div>
+    <div class="card-id">observe</div>
+  </div>
+
+</div>
+
+<h2>🌍 主題圖示</h2>
+<div class="grid">
+
+  <div class="card">
+    <!-- 地球 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="26" fill="#ddeeff" stroke="#8a5f33" stroke-width="2.5"/>
+      <!-- Continents suggestion -->
+      <ellipse cx="28" cy="26" rx="10" ry="8" fill="#a8c87a" stroke="#6a9a5a" stroke-width="1.5"/>
+      <ellipse cx="42" cy="36" rx="8" ry="6" fill="#a8c87a" stroke="#6a9a5a" stroke-width="1.5"/>
+      <ellipse cx="20" cy="42" rx="5" ry="4" fill="#a8c87a" stroke="#6a9a5a" stroke-width="1.5"/>
+      <!-- Grid lines -->
+      <circle cx="32" cy="32" r="26" fill="none" stroke="#8a5f33" stroke-width="2.5"/>
+      <ellipse cx="32" cy="32" rx="26" ry="10" fill="none" stroke="#8a5f33" stroke-width="1" opacity="0.4"/>
+      <line x1="6" y1="32" x2="58" y2="32" stroke="#8a5f33" stroke-width="1" opacity="0.4"/>
+    </svg>
+    <div class="card-label">地球 / 世界</div>
+    <div class="card-id">globe</div>
+  </div>
+
+  <div class="card">
+    <!-- 礦石晶體 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <!-- Main crystal -->
+      <path d="M32 6 L52 26 L44 56 L20 56 L12 26 Z" fill="#d5b07c" stroke="#8a5f33" stroke-width="2.5"/>
+      <!-- Facets -->
+      <path d="M32 6 L52 26 L32 30 Z" fill="white" opacity="0.35"/>
+      <path d="M32 6 L12 26 L32 30 Z" fill="#8a5f33" opacity="0.2"/>
+      <path d="M32 30 L12 26 L20 56 Z" fill="#8a5f33" opacity="0.15"/>
+      <!-- Shine -->
+      <path d="M22 16 L30 8" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+      <circle cx="24" cy="20" r="2" fill="white" opacity="0.6"/>
+    </svg>
+    <div class="card-label">礦石晶體</div>
+    <div class="card-id">crystal</div>
+  </div>
+
+  <div class="card">
+    <!-- 指南針 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="26" fill="#f3e8d5" stroke="#8a5f33" stroke-width="3"/>
+      <circle cx="32" cy="32" r="20" fill="white" stroke="#d5b07c" stroke-width="1.5"/>
+      <!-- Tick marks -->
+      <line x1="32" y1="8" x2="32" y2="13" stroke="#8a5f33" stroke-width="2"/>
+      <line x1="32" y1="51" x2="32" y2="56" stroke="#8a5f33" stroke-width="2"/>
+      <line x1="8" y1="32" x2="13" y2="32" stroke="#8a5f33" stroke-width="2"/>
+      <line x1="51" y1="32" x2="56" y2="32" stroke="#8a5f33" stroke-width="2"/>
+      <!-- N arrow (warm) -->
+      <path d="M32 14 L36 32 L32 28 L28 32 Z" fill="#c4925a"/>
+      <!-- S arrow (dark) -->
+      <path d="M32 50 L28 32 L32 36 L36 32 Z" fill="#6b4a2a" opacity="0.6"/>
+      <!-- Center -->
+      <circle cx="32" cy="32" r="4" fill="#8a5f33"/>
+      <circle cx="32" cy="32" r="2" fill="white"/>
+    </svg>
+    <div class="card-label">指南針</div>
+    <div class="card-id">compass</div>
+  </div>
+
+  <div class="card">
+    <!-- 探險家帽 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <!-- Brim -->
+      <ellipse cx="32" cy="40" rx="28" ry="7" fill="#c4925a" stroke="#8a5f33" stroke-width="2.5"/>
+      <!-- Hat body -->
+      <path d="M14 40 Q16 18 32 16 Q48 18 50 40 Z" fill="#d5b07c" stroke="#8a5f33" stroke-width="2.5"/>
+      <!-- Hat band -->
+      <path d="M17 38 Q22 30 32 29 Q42 30 47 38" fill="#8a5f33" stroke="#8a5f33" stroke-width="0"/>
+      <path d="M17 38 Q22 32 32 31 Q42 32 47 38" fill="none" stroke="#f3e8d5" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <!-- Top button -->
+      <ellipse cx="32" cy="16" rx="5" ry="2.5" fill="#c4925a" stroke="#8a5f33" stroke-width="1.5"/>
+    </svg>
+    <div class="card-label">探險家帽</div>
+    <div class="card-id">explorer-hat</div>
+  </div>
+
+  <div class="card">
+    <!-- 晶石精靈 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <!-- Body: crystal shape -->
+      <path d="M32 8 L50 24 L44 52 L20 52 L14 24 Z" fill="#d5b07c" stroke="#8a5f33" stroke-width="2.5"/>
+      <!-- Shine -->
+      <path d="M32 8 L50 24 L36 26 Z" fill="white" opacity="0.35"/>
+      <!-- Eyes -->
+      <circle cx="26" cy="33" r="4" fill="white" stroke="#8a5f33" stroke-width="1.5"/>
+      <circle cx="38" cy="33" r="4" fill="white" stroke="#8a5f33" stroke-width="1.5"/>
+      <circle cx="27" cy="33" r="2" fill="#2f2018"/>
+      <circle cx="39" cy="33" r="2" fill="#2f2018"/>
+      <!-- Smile -->
+      <path d="M25 42 Q32 47 39 42" fill="none" stroke="#8a5f33" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Shine on eyes -->
+      <circle cx="28" cy="32" r="1" fill="white"/>
+      <circle cx="40" cy="32" r="1" fill="white"/>
+    </svg>
+    <div class="card-label">晶石精靈</div>
+    <div class="card-id">crystal-buddy</div>
+  </div>
+
+  <div class="card">
+    <!-- 貓頭鷹教授 -->
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <!-- Body -->
+      <ellipse cx="32" cy="40" rx="18" ry="20" fill="#d5b07c" stroke="#8a5f33" stroke-width="2.5"/>
+      <!-- Head -->
+      <circle cx="32" cy="22" r="16" fill="#c4925a" stroke="#8a5f33" stroke-width="2.5"/>
+      <!-- Ears (tufts) -->
+      <path d="M20 10 L17 4 L24 9" fill="#c4925a" stroke="#8a5f33" stroke-width="2"/>
+      <path d="M44 10 L47 4 L40 9" fill="#c4925a" stroke="#8a5f33" stroke-width="2"/>
+      <!-- Eyes -->
+      <circle cx="26" cy="22" r="6" fill="white" stroke="#8a5f33" stroke-width="2"/>
+      <circle cx="38" cy="22" r="6" fill="white" stroke="#8a5f33" stroke-width="2"/>
+      <circle cx="27" cy="22" r="3" fill="#2f2018"/>
+      <circle cx="39" cy="22" r="3" fill="#2f2018"/>
+      <circle cx="28" cy="21" r="1" fill="white"/>
+      <circle cx="40" cy="21" r="1" fill="white"/>
+      <!-- Beak -->
+      <path d="M32 26 L29 30 L35 30 Z" fill="#f0a030"/>
+      <!-- Belly stripes -->
+      <path d="M20 38 Q32 35 44 38" fill="none" stroke="#8a5f33" stroke-width="1.5" opacity="0.4"/>
+      <path d="M20 44 Q32 41 44 44" fill="none" stroke="#8a5f33" stroke-width="1.5" opacity="0.3"/>
+      <!-- Glasses -->
+      <circle cx="26" cy="22" r="7" fill="none" stroke="#8a5f33" stroke-width="1.5"/>
+      <circle cx="38" cy="22" r="7" fill="none" stroke="#8a5f33" stroke-width="1.5"/>
+      <line x1="33" y1="22" x2="31" y2="22" stroke="#8a5f33" stroke-width="1.5"/>
+    </svg>
+    <div class="card-label">貓頭鷹教授</div>
+    <div class="card-id">owl-buddy</div>
+  </div>
+
+</div>
+
+<h2>📐 邊框 / 裝飾</h2>
+<div class="grid">
+
+  <div class="card">
+    <!-- 任務框 -->
+    <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="width:120px;height:60px">
+      <rect x="3" y="3" width="114" height="54" rx="6" fill="#fffbf0" stroke="#c4925a" stroke-width="2.5" stroke-dasharray="6,3"/>
+      <!-- Corner gems -->
+      <path d="M10 6 L14 10 L10 14 L6 10 Z" fill="#d5b07c"/>
+      <path d="M110 6 L114 10 L110 14 L106 10 Z" fill="#d5b07c"/>
+      <path d="M10 54 L14 50 L10 46 L6 50 Z" fill="#d5b07c"/>
+      <path d="M110 54 L114 50 L110 46 L106 50 Z" fill="#d5b07c"/>
+    </svg>
+    <div class="card-label">任務框</div>
+    <div class="card-id">mission-frame</div>
+  </div>
+
+  <div class="card">
+    <!-- 莫氏硬度條 -->
+    <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" style="width:120px;height:60px">
+      <text x="4" y="14" font-family="system-ui" font-size="10" fill="#8a5f33" font-weight="600">莫氏硬度</text>
+      <!-- Bar segments 1-10 -->
+      <rect x="4" y="20" width="11" height="18" rx="2" fill="#e8d4b8" stroke="#c4925a" stroke-width="1"/>
+      <rect x="16" y="20" width="11" height="18" rx="2" fill="#e0c8a8" stroke="#c4925a" stroke-width="1"/>
+      <rect x="28" y="20" width="11" height="18" rx="2" fill="#d8bc98" stroke="#c4925a" stroke-width="1"/>
+      <rect x="40" y="20" width="11" height="18" rx="2" fill="#d0b088" stroke="#c4925a" stroke-width="1"/>
+      <rect x="52" y="20" width="11" height="18" rx="2" fill="#c8a478" stroke="#c4925a" stroke-width="1"/>
+      <rect x="64" y="20" width="11" height="18" rx="2" fill="#c09868" stroke="#c4925a" stroke-width="1"/>
+      <rect x="76" y="20" width="11" height="18" rx="2" fill="#b88c58" stroke="#8a5f33" stroke-width="1.5"/>
+      <rect x="88" y="20" width="11" height="18" rx="2" fill="#a07040" stroke="#8a5f33" stroke-width="1.5"/>
+      <rect x="100" y="20" width="7" height="18" rx="2" fill="#886030" stroke="#8a5f33" stroke-width="1.5"/>
+      <text x="9" y="53" font-family="system-ui" font-size="8" fill="#8a5f33">1</text>
+      <text x="60" y="53" font-family="system-ui" font-size="8" fill="#8a5f33">5</text>
+      <text x="109" y="53" font-family="system-ui" font-size="8" fill="#8a5f33">9</text>
+    </svg>
+    <div class="card-label">莫氏硬度條</div>
+    <div class="card-id">mohs-scale</div>
+  </div>
+
+</div>
+
+<h2 style="margin-top:32px">📋 使用方式</h2>
+<div style="background:white; border-radius:12px; padding:16px 20px; max-width:600px; font-size:13px; color:#4d3521; line-height:1.8;">
+  <p>1. 在 worksheet HTML 中直接複製對應的 <code>&lt;svg&gt;...&lt;/svg&gt;</code> 區塊</p>
+  <p>2. 控制大小用 CSS <code>width / height</code> 或 <code>style="width:48px"</code></p>
+  <p>3. 列印時完全清晰，不需要外部檔案</p>
+  <p>4. 所有 SVG 皆使用書蟲暖棕配色 (#8a5f33 / #c4925a / #d5b07c / #f3e8d5)</p>
+</div>
+
+</body>
+</html>
