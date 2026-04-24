@@ -188,6 +188,7 @@ grade: middle
 lang: zh
 slug: <slug>
 pdf: /pdfs/<slug>-zh.pdf
+previewHtml: /printable/<slug>-zh.html   # 有此欄位 → 直接用 HTML 預覽；省略 → 用 MD 渲染預覽
 coverEmoji: <emoji>
 coverColor: "<hex>"
 translationOf: <slug>-en

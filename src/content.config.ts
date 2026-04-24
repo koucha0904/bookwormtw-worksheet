@@ -12,6 +12,7 @@ const worksheets = defineCollection({
     lang: z.enum(['zh', 'en']),
     slug: z.string(),
     pdf: z.string().optional(),
+    previewHtml: z.string().optional(),
     coverEmoji: z.string().default('📘'),
     coverColor: z.string().default('#f3e8d5'),
     translationOf: z.string().optional(),
