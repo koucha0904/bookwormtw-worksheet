@@ -1,6 +1,6 @@
 ---
 name: create-worksheet
-description: Create a new bilingual (zh-TW + English) worksheet for the Bookworm Worksheets site (worksheet.bookwormtw.com). Guides the user through topic, learning objectives, activity format, and illustration style, then writes the site MD content and a printable HTML worksheet. Trigger when the user says "做一份學習單", "做一張學習單", "新增學習單", "加一份學習單", "create a worksheet", "new worksheet", or mentions they want to add a country / mineral / animal / any new subject to the site.
+description: Create a new bilingual (zh-TW + English) worksheet for the Bookworm Worksheets site (worksheet.bookwormtw.com). Pipeline - Step 1-3: gather requirements and plan; Step 4: write content outline + Fact-Check Brief (pause for user to verify with GPT/Claude); Step 5: apply corrections + Claude Design Brief (pause for user to get HTML from Claude Design); Step 6: receive HTML + write MD files + push. Trigger when the user says "做一份學習單", "做一張學習單", "新增學習單", "加一份學習單", "create a worksheet", "new worksheet", or mentions they want to add a country / mineral / animal / any new subject to the site.
 ---
 
 # Create a worksheet
@@ -105,76 +105,149 @@ Wait for OK before writing any file.
 
 ---
 
-## Step 4 — Content design rules
+## Step 4 — Content outline + Fact-Check Brief
 
-Apply these to both MD files and printable HTML.
+> **STOP after this step.** Output the brief, then wait for the user to return with corrections before proceeding.
 
-### Voice
-- Story voice, not textbook. Imagine explaining to a curious 9-year-old.
-- Each paragraph ≤ 3–4 lines. Use short sentences.
-- Page must be scannable even without full reading — kids should be able to start the activity after a quick glance.
+Write the full content in plain structured text (not HTML yet). Then output a **Fact-Check Brief** formatted for pasting directly into GPT or Claude.ai.
 
-### Activities — do's and don'ts
+### Fact-Check Brief template
 
-| ❌ Don't | ✅ Do instead |
-|---|---|
-| 「請寫下你的觀察」(open) | Structured fields: 顏色＿＿ / 形狀＿＿ / 像＿＿ / ☐規則 ☐不規則 |
-| 傳統問答題 | 選擇題（≤4 選項，至少 1 個有趣選項）|
-| 長篇敘述作答 | 勾選 / 填一個詞 / 畫圖 |
-| 「畫一畫」 | 命名 + 能力設定 + 畫圖（任務導向）|
-| 4+ 活動在同一頁 | 1 heading + 2–3 activity blocks per page max |
+```
+## 學習單事實核查
 
-### Observation block standard format
-```html
-<div class="obs-grid">
-  <div class="obs-field"><span class="obs-label">顏色</span><span class="fill"></span></div>
-  <div class="obs-field"><span class="obs-label">形狀</span><span class="fill"></span></div>
-  <div class="obs-field"><span class="obs-label">像什麼</span><span class="fill"></span></div>
-  <div class="obs-checks">
-    ☐ 規則  ☐ 不規則  ☐ 會發光  ☐ 透明  ☐ 有條紋
-  </div>
-</div>
+主題：[topic]　年級：[grade]　語言：[zh/en]
+
+請逐項核查以下內容的正確性，標示：
+  ❌ 明確錯誤（請提供正確答案）
+  ⚠️ 有疑慮 / 需查證
+  ✅ 正確
+  💡 建議補充或換個更適合的說法
+
+---
+### 知識點
+[條列所有知識點，一行一條]
+
+---
+### 活動內容與選擇題答案
+P2 任務一：[活動名稱]
+  說明文字：[原文]
+  選擇題：[題目]
+    A. [選項] B. [選項] C. [選項] D. [選項]
+    正確答案：[X]
+
+P3 任務二：[活動名稱]
+  [同上格式]
+
+---
+### FAQ（將出現在網站上，影響 SEO）
+Q1: [問題]
+A1: [答案]
+... (共 5 組)
+
+---
+請回覆修改建議，格式：「P2 選擇題答案應為 B，因為⋯⋯」
 ```
 
-### Multiple choice standard format
-```html
-<div class="quiz">
-  <p class="quiz-q">❓ <strong>問題文字</strong></p>
-  <div class="quiz-options">
-    <label>☐ A. 選項一</label>
-    <label>☐ B. 選項二</label>
-    <label>☐ C. 選項三（有趣或幽默的選項）</label>
-    <label>☐ D. 選項四</label>
-  </div>
-</div>
-```
-
-### Creative naming standard format
-```html
-<div class="box create-box">
-  <p>🌟 幫你最喜歡的礦石取一個名字，給它一個超能力！</p>
-  <p>礦石名字：<span class="fill" style="min-width:60mm"></span></p>
-  <p>超能力：<span class="fill" style="min-width:80mm"></span></p>
-  <div class="draw-box" style="min-height:55mm; margin-top:4mm;"></div>
-</div>
-```
-
-### Achievement system standard format (last content block, before footer)
-```html
-<div class="achievement">
-  <h3>🏅 今日成就</h3>
-  <label class="ach-item">☐ 我找到了一顆讓我印象深刻的礦石</label>
-  <label class="ach-item">☐ 我完成了所有主任務</label>
-  <label class="ach-item">☐ 我幫礦石取了一個超棒的名字</label>
-  <label class="ach-item ach-star">⭐ 我找到了一顆形狀特別的礦石，並且知道它的名字</label>
-</div>
-```
+After outputting the brief, say:
+> 「請把這段貼到 GPT 或 Claude.ai 核查，回來告訴我哪裡要修改，或說『沒問題』就繼續。」
 
 ---
 
-## Step 5 — Write the site MD files
+## Step 5 — Apply corrections + Claude Design Brief
 
-### Frontmatter schema
+> **STOP after this step.** Output the Design Brief, then wait for the user to return with the HTML from Claude Design.
+
+1. Apply all corrections from the fact-check step.
+2. Output a **Claude Design Brief** formatted for pasting into [claude.ai](https://claude.ai) (Projects → artifact).
+
+### Claude Design Brief template
+
+```
+請製作一份 A4 學習單 HTML。
+
+**輸出規格**
+- 自包含 HTML（所有 CSS 在 <style> 內，不使用外部連結）
+- 字型：system-ui 或 "Noto Sans TC"（不要 Google Fonts）
+- 列印：@page { size: A4 portrait; margin: 14mm; }
+- 每個活動區塊加 page-break-inside: avoid
+- footer 用 margin-top 置於正常文件流，不用 position: absolute
+- 螢幕預覽：白色卡片，最大寬度 210mm，陰影
+
+---
+**基本資訊**
+標題：[title]
+年級：[grade]（[age range] 歲）
+語言：繁體中文
+封面色：[hex]
+封面 emoji：[emoji]
+角色設定：你是一位 [role name]
+
+---
+**頁面結構（共 [N] 頁）**
+
+P1 封面
+- 大 emoji：[emoji]
+- 角色說明：你是一位 [role]
+- 任務宣言：🎯 你的任務：[mission statement]
+- 姓名欄、日期欄
+- 填空：今天最想發現的是：___________
+- 頁尾：worksheet.bookwormtw.com · 書蟲學習單 · 1
+
+P2 任務一：[title]
+說明：[intro text, 2–3 sentences]
+活動 A — 結構化觀察表：
+  欄位：顏色 ___ / 形狀 ___ / 像什麼 ___
+  勾選：☐ 規則 ☐ 不規則 ☐ 會發光 ☐ 透明 ☐ 有條紋
+活動 B — 選擇題：
+  題目：[question]
+  ☐ A. [opt]  ☐ B. [opt]  ☐ C. [opt]  ☐ D. [opt]
+頁尾：worksheet.bookwormtw.com · 書蟲學習單 · 2
+
+P3 任務二：[title]
+[same detail level]
+
+P[N] 成就 + 反思
+成就清單：
+  ☐ [ach 1]
+  ☐ [ach 2]
+  ☐ [ach 3]
+  ⭐ [challenge ach]（金色粗體）
+反思填空：今天最讓我驚訝的是：___________
+頁尾：worksheet.bookwormtw.com · 書蟲學習單 · [N]
+
+---
+**配色（暖棕色系）**
+主色：#8a5f33　次色：#c4925a　淺棕：#d5b07c　背景：#f3e8d5
+虛線框：#c4925a　成就框：#f0c060
+
+**活動框樣式建議**
+- 觀察表：solid border #e6cfa9，圓角 3mm
+- 選擇題：左側 4px solid #d5b07c，背景 #fffbf5
+- 創作框：dashed border #c4925a，背景 #fffdf9
+- 成就框：solid #f0c060，背景 #fffbf0
+- 畫圖區：dashed border #c4925a，min-height 55mm
+- 作文區：橫線（repeating-linear-gradient），min-height 48mm
+```
+
+After outputting the brief, say:
+> 「請把這段貼到 Claude.ai（建議開新對話，用 Project），確認 artifact 版面 OK 後，把完整 HTML 複製回來給我。」
+
+---
+
+## Step 6 — Receive HTML + integrate
+
+User pastes back the HTML from Claude Design. Then:
+
+1. **Save HTML** → `public/printable/<slug>-zh.html`
+   - If the HTML uses Google Fonts links, replace with `system-ui` fallback
+   - If it uses external image URLs, remove or replace with emoji/inline SVG
+
+2. **Write MD files** — Chinese + English (see schema below)
+
+3. **git add + commit + push**
+
+### MD frontmatter schema
 
 **Chinese** → `src/content/worksheets/zh/<slug>.md`
 
@@ -188,7 +261,7 @@ grade: middle
 lang: zh
 slug: <slug>
 pdf: /pdfs/<slug>-zh.pdf
-previewHtml: /printable/<slug>-zh.html   # 有此欄位 → 直接用 HTML 預覽；省略 → 用 MD 渲染預覽
+previewHtml: /printable/<slug>-zh.html
 coverEmoji: <emoji>
 coverColor: "<hex>"
 translationOf: <slug>-en
@@ -216,73 +289,55 @@ Same structure, `lang: en`, `slug: <slug>-en`, `topic: <topic>-en`, `translation
 
 ---
 
-## Step 6 — Write the printable HTML
+## Content design rules (reference — use when writing the Design Brief)
 
-`public/printable/<slug>-zh.html` (and `-en.html` for bilingual)
+### Voice
+- Story voice, not textbook. Imagine explaining to a curious 9-year-old.
+- Each paragraph ≤ 3–4 lines. Short sentences.
+- Scannable: kids should be able to start the activity after a quick glance.
 
-### Print layout rules (critical — GPT's guide v2.0 incorporated)
+### Activities — do's and don'ts
 
-**❌ Never:**
-```css
-min-height: 260mm;          /* causes content to be pushed off-page */
-position: absolute; bottom: 0;  /* footer gets orphaned or overlaps */
-```
+| ❌ Don't | ✅ Do instead |
+|---|---|
+| 「請寫下你的觀察」(open-ended) | Structured fields: 顏色＿＿ / 形狀＿＿ / 像＿＿ / ☐規則 ☐不規則 |
+| 傳統問答題 | 選擇題（≤4 選項，至少 1 個有趣選項）|
+| 長篇敘述作答 | 勾選 / 填一個詞 / 畫圖 |
+| 「畫一畫」 | 命名 + 能力設定 + 畫圖（任務導向）|
+| 4+ 活動在同一頁 | 1 heading + 2–3 activity blocks per page max |
 
-**✅ Always:**
-```css
-.page {
-  page-break-after: always;
-  padding-bottom: 20mm;   /* breathing room, not min-height */
-}
-.box, .lined, .quiz, .obs-grid, .achievement, .draw-box, .create-box {
-  page-break-inside: avoid;  /* activity blocks never split across pages */
-}
-footer {
-  margin-top: 10mm;       /* normal document flow, not absolute */
-}
-```
-
-**Content budget per page** (1 heading + max 2–3 blocks):
+### Content budget per page (for page count planning)
 
 | Block type | Approx height |
 |---|---|
 | H2 heading | ~10mm |
 | Short paragraph (3–4 lines) | ~20mm |
 | Observation grid | ~30mm |
-| Activity box (min 30mm) | ~40mm |
+| Activity box | ~40mm |
 | Draw box (min 55mm) | ~65mm |
 | Lined writing area | ~65mm |
 | Achievement list (4 items) | ~35mm |
 | Footer | ~15mm |
 
-If a page's estimated height > **250mm**: split into two pages or cut one block.
+If a page's estimated height > **250mm**: split or cut one block.
 
-**Manual page break when needed:**
-```html
-<div style="page-break-before: always;"></div>
+---
+
+## Fallback — self-generated HTML (skip Claude Design)
+
+Use this when the user does **not** want to go through Claude Design. Write `public/printable/<slug>-zh.html` directly using the template below, then proceed to Step 7.
+
+**Print layout rules — never break these:**
+```css
+/* ❌ Never */
+min-height: 260mm;
+position: absolute; bottom: 0;
+
+/* ✅ Always */
+.page { page-break-after: always; padding-bottom: 20mm; }
+.box, .lined, .quiz, .obs-grid, .achievement, .draw-box, .create-box { page-break-inside: avoid; }
+footer { margin-top: 10mm; }
 ```
-
-### Mission cover template (任務型)
-
-```html
-<section class="page">
-  <div class="hero">
-    <div class="emoji">{{COVER_EMOJI}}</div>
-    <div class="mission-role">你是一位 <strong>{{ROLE}}</strong></div>
-    <h1>{{TITLE}}</h1>
-    <div class="mission-box">
-      🎯 你的任務：{{MISSION_STATEMENT}}
-    </div>
-  </div>
-  <div class="name-fields">
-    <p>探險家姓名：<span class="field"></span> 　日期：<span class="field"></span></p>
-    <p>今天我最想發現的是：<span class="field" style="min-width:90mm"></span></p>
-  </div>
-  <footer>worksheet.bookwormtw.com · 書蟲學習單</footer>
-</section>
-```
-
-### Full printable template
 
 ```html
 <!doctype html>
@@ -294,224 +349,50 @@ If a page's estimated height > **250mm**: split into two pages or cut one block.
   @page { size: A4 portrait; margin: 14mm 14mm 16mm 14mm; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; font-family: "Noto Sans TC", "PingFang TC", system-ui, sans-serif; color: #2f2018; }
-
-  /* ── Page structure ── */
-  .page {
-    page-break-after: always;
-    padding-bottom: 20mm;   /* NO min-height — content determines height */
-  }
+  .page { page-break-after: always; padding-bottom: 20mm; }
   .page:last-child { page-break-after: auto; }
-
-  /* ── Prevent activity blocks from splitting mid-print ── */
-  .box, .lined, .quiz, .obs-grid, .achievement,
-  .draw-box, .create-box, .mission-box, .name-fields {
-    page-break-inside: avoid;
-  }
-
-  /* ── Typography ── */
+  .box, .lined, .quiz, .obs-grid, .achievement, .draw-box, .create-box, .mission-box, .name-fields { page-break-inside: avoid; }
   h1 { font-size: 28pt; margin: 0 0 4mm; color: #6b4a2a; line-height: 1.1; }
   h2 { font-size: 16pt; margin: 6mm 0 3mm; color: #8a5f33; border-bottom: 2px dashed #d5b07c; padding-bottom: 2mm; }
   h3 { font-size: 12pt; margin: 4mm 0 2mm; color: #6b4a2a; }
   p, li, label { font-size: 11pt; line-height: 1.7; }
-
-  /* ── Hero / Cover ── */
   .hero { background: {{COVER_COLOR}}; border-radius: 8mm; padding: 10mm; text-align: center; margin-bottom: 6mm; }
   .hero .emoji { font-size: 64pt; line-height: 1; }
   .mission-role { font-size: 13pt; color: #8a5f33; margin: 3mm 0 1mm; }
   .mission-box { background: rgba(255,255,255,0.7); border: 2px solid #d5b07c; border-radius: 4mm; padding: 4mm 6mm; margin-top: 4mm; font-size: 12pt; text-align: left; }
-
-  /* ── Input fields ── */
   .name-fields { margin-top: 6mm; }
   .field { display: inline-block; border-bottom: 1.5px solid #a9773f; min-width: 45mm; height: 7mm; margin: 0 2mm; }
   .fill { display: inline-block; border-bottom: 1.5px solid #a9773f; min-width: 22mm; padding: 0 2mm; }
-
-  /* ── Activity boxes ── */
   .box { border: 1.5px dashed #c4925a; border-radius: 3mm; padding: 4mm; margin: 3mm 0; }
   .lined { background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 8mm, #e6cfa9 8mm, #e6cfa9 8.5mm); min-height: 48mm; padding: 2mm 4mm; }
   .draw-box { border: 1.5px dashed #c4925a; border-radius: 3mm; min-height: 55mm; margin: 3mm 0; }
   .create-box { border: 2px solid #c4925a; border-radius: 4mm; padding: 5mm; margin: 4mm 0; background: #fffdf9; }
-
-  /* ── Observation grid ── */
   .obs-grid { border: 1.5px solid #e6cfa9; border-radius: 3mm; padding: 4mm; margin: 3mm 0; }
   .obs-field { margin: 2mm 0; }
   .obs-label { display: inline-block; width: 14mm; color: #8a5f33; font-weight: 600; font-size: 11pt; }
   .obs-checks { margin-top: 3mm; font-size: 11pt; display: flex; flex-wrap: wrap; gap: 4mm; }
-
-  /* ── Quiz / multiple choice ── */
   .quiz { background: #fffbf5; border-left: 4px solid #d5b07c; padding: 4mm 5mm; margin: 4mm 0; border-radius: 0 3mm 3mm 0; }
   .quiz-q { margin: 0 0 3mm; font-size: 12pt; }
   .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; font-size: 11pt; }
-  .quiz-options label { padding: 1mm 0; }
-
-  /* ── Achievement ── */
   .achievement { background: #fffbf0; border: 2px solid #f0c060; border-radius: 4mm; padding: 5mm; margin: 5mm 0; }
   .achievement h3 { margin: 0 0 3mm; }
   .ach-item { display: block; font-size: 11pt; padding: 1.5mm 0; }
   .ach-star { color: #8a5f33; font-weight: 600; }
-
-  /* ── Layout helpers ── */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
   .buddy { font-size: 32pt; text-align: right; margin: 4mm 0 0; }
-
-  /* ── Footer — normal flow, NOT absolute ── */
-  footer {
-    margin-top: 10mm;
-    border-top: 1px solid #e6cfa9;
-    padding-top: 3mm;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 8.5pt;
-    color: #a9773f;
-  }
-
-  /* ── Screen preview ── */
+  footer { margin-top: 10mm; border-top: 1px solid #e6cfa9; padding-top: 3mm; display: flex; justify-content: space-between; align-items: center; font-size: 8.5pt; color: #a9773f; }
   .screen-only { display: none; }
   @media screen {
     body { background: #f3e8d5; padding: 20px; }
     .page { background: white; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin: 0 auto 20px; max-width: 210mm; padding: 14mm 14mm 20mm; }
     .screen-only { display: block; text-align: center; padding: 10px 0 20px; color: #6b4a2a; font-size: 13px; }
   }
-  @media print {
-    body { background: none; }
-    .screen-only { display: none; }
-  }
+  @media print { body { background: none; } .screen-only { display: none; } }
 </style>
 </head>
 <body>
-
-<div class="screen-only">按 ⌘P 列印，或存成 PDF。列印時不會出現這行字。</div>
-
-<!-- PAGE 1 · Cover / Mission -->
-<section class="page">
-  <div class="hero">
-    <div class="emoji">{{COVER_EMOJI}}</div>
-    <div class="mission-role">你是一位 <strong>{{ROLE}}</strong></div>
-    <h1>{{TITLE}}</h1>
-    <div class="mission-box">🎯 你的任務：{{MISSION_STATEMENT}}</div>
-  </div>
-  <div class="name-fields">
-    <p>探險家姓名：<span class="field"></span> 　日期：<span class="field"></span></p>
-    <p>今天最想發現的：<span class="field" style="min-width:90mm"></span></p>
-  </div>
-  <div class="buddy">{{BUDDY_EMOJI}}</div>
-  <footer>
-    <span>worksheet.bookwormtw.com · 書蟲學習單</span>
-    <span>{{TITLE}}</span>
-    <span>1</span>
-  </footer>
-</section>
-
-<!-- PAGE 2 · Observe (任務型) / Learn (知識型) -->
-<section class="page">
-  <h2>🔍 任務一：{{MISSION_1_TITLE}}</h2>
-  <p>{{MISSION_1_INTRO}}</p>
-
-  <div class="obs-grid">
-    <div class="obs-field"><span class="obs-label">顏色</span><span class="fill" style="min-width:50mm"></span></div>
-    <div class="obs-field"><span class="obs-label">形狀</span><span class="fill" style="min-width:50mm"></span></div>
-    <div class="obs-field"><span class="obs-label">像什麼</span><span class="fill" style="min-width:50mm"></span></div>
-    <div class="obs-checks">
-      ☐ 規則　☐ 不規則　☐ 會發光　☐ 透明　☐ 有條紋
-    </div>
-  </div>
-
-  <div class="quiz">
-    <p class="quiz-q">❓ <strong>{{QUIZ_1_QUESTION}}</strong></p>
-    <div class="quiz-options">
-      <label>☐ A. {{OPT_A}}</label>
-      <label>☐ B. {{OPT_B}}</label>
-      <label>☐ C. {{OPT_C}}（有趣選項）</label>
-      <label>☐ D. {{OPT_D}}</label>
-    </div>
-  </div>
-
-  <div class="buddy">{{BUDDY_EMOJI}}</div>
-  <footer>
-    <span>worksheet.bookwormtw.com · 書蟲學習單</span>
-    <span>{{TITLE}}</span>
-    <span>2</span>
-  </footer>
-</section>
-
-<!-- PAGE 3 · Judge + Record -->
-<section class="page">
-  <h2>🧠 任務二：{{MISSION_2_TITLE}}</h2>
-  <p>{{MISSION_2_INTRO}}</p>
-
-  <!-- Knowledge content or second observation -->
-  <div class="box">
-    <h3>{{SUBSECTION_TITLE}}</h3>
-    <p>{{CONTENT}}</p>
-  </div>
-
-  <div class="quiz">
-    <p class="quiz-q">❓ <strong>{{QUIZ_2_QUESTION}}</strong></p>
-    <div class="quiz-options">
-      <label>☐ A. {{OPT_A}}</label>
-      <label>☐ B. {{OPT_B}}</label>
-      <label>☐ C. {{OPT_C}}</label>
-      <label>☐ D. {{OPT_D}}</label>
-    </div>
-  </div>
-
-  <div class="buddy">{{BUDDY_EMOJI}}</div>
-  <footer>
-    <span>worksheet.bookwormtw.com · 書蟲學習單</span>
-    <span>{{TITLE}}</span>
-    <span>3</span>
-  </footer>
-</section>
-
-<!-- PAGE 4 · Create + Achievement -->
-<section class="page">
-  <h2>✨ 任務三：{{MISSION_3_TITLE}}</h2>
-
-  <div class="create-box">
-    <p>🌟 {{CREATE_PROMPT}}</p>
-    <p>名字：<span class="fill" style="min-width:60mm"></span></p>
-    <p>超能力：<span class="fill" style="min-width:80mm"></span></p>
-    <div class="draw-box"></div>
-  </div>
-
-  <!-- Open challenge -->
-  <div class="box">
-    <h3>🔭 開放探索（沒有標準答案）</h3>
-    <p>{{OPEN_CHALLENGE}}</p>
-    <div class="lined"></div>
-  </div>
-
-  <!-- Achievement — always last content block -->
-  <div class="achievement">
-    <h3>🏅 今日成就</h3>
-    <label class="ach-item">☐ {{ACH_1}}</label>
-    <label class="ach-item">☐ {{ACH_2}}</label>
-    <label class="ach-item">☐ {{ACH_3}}</label>
-    <label class="ach-item ach-star">⭐ {{ACH_CHALLENGE}}</label>
-  </div>
-
-  <!-- One-line reflection -->
-  <p style="margin-top:5mm;">今天最讓我驚訝的是：<span class="fill" style="min-width:100mm"></span></p>
-
-  <footer>
-    <span>worksheet.bookwormtw.com · 書蟲學習單</span>
-    <span>{{TITLE}}</span>
-    <span>4</span>
-  </footer>
-</section>
-
-<!-- PAGE 5 · Answer key (optional) -->
-<section class="page">
-  <h2>給大人的解答與延伸</h2>
-  <p><strong>選擇題答案：</strong>{{ANSWERS}}</p>
-  <p><strong>延伸活動：</strong>{{EXTENSIONS}}</p>
-  <footer>
-    <span>worksheet.bookwormtw.com · 書蟲學習單</span>
-    <span>{{TITLE}}</span>
-    <span>5</span>
-  </footer>
-</section>
-
+<div class="screen-only">按 ⌘P 列印，或存成 PDF。</div>
+<!-- pages go here -->
 </body>
 </html>
 ```
@@ -648,37 +529,25 @@ All icons live in `public/icons/preview.html` for browsing. Open that file in a 
 
 ---
 
-## Step 7 — Print verification checklist (do before reporting done)
+## Step 7 — Report back
 
-Estimate each page's height by summing block sizes from the content budget table. For each `.page`:
+After Step 6 is complete (HTML saved + MD files written + pushed):
 
-- [ ] Estimated height < 250mm?
-- [ ] No block uses `position: absolute`?
-- [ ] Footer is in normal document flow (last element, `margin-top`)?
-- [ ] Every activity block has `page-break-inside: avoid` class?
-- [ ] No more than 3 activity blocks on one page?
-
-Tell the user explicitly:
-> 「請在瀏覽器開啟 `public/printable/<slug>-zh.html`，按 ⌘P，確認預覽顯示 **N 頁**，沒有內容被裁切或區塊被切一半。如果有破版，告訴我是第幾頁。」
-
----
-
-## Step 8 — Report back
-
-1. **File paths**: site MD pages + printable HTML
-2. **Page count**: e.g. "中文 4 頁 / 英文 4 頁"
-3. **Mode used**: 任務型 or 知識型，brief reason why
-4. **One sentence**: what makes this worksheet different from existing ones
-5. **Verify flag**: anything to double-check for accuracy
+1. **File paths**: `public/printable/<slug>-zh.html` + MD files
+2. **Mode used**: 任務型 or 知識型，brief reason why
+3. **One sentence**: what makes this worksheet different from existing ones
+4. **Print reminder**:
+   > 「請在瀏覽器開啟 `public/printable/<slug>-zh.html`，按 ⌘P，確認 **N 頁**，沒有內容被裁切。確認 OK 後，把它存成 PDF 放進 `public/pdfs/<slug>-zh.pdf`，學習單就完整上線了。」
 
 ---
 
 ## Don'ts
 
-- Don't write MD + HTML simultaneously — show the plan (Step 3) and wait for OK.
-- Don't invent facts. WebSearch if unsure. Flag uncertainties in Step 8.
+- Don't advance past Step 4 without outputting the Fact-Check Brief and waiting.
+- Don't advance past Step 5 without outputting the Design Brief and waiting.
+- Don't invent facts. WebSearch if unsure. Flag uncertainties explicitly.
 - Don't skip the FAQ. 5 per language, always.
-- Don't use external image URLs in printable HTML (offline print must work).
+- Don't use external image URLs or Google Fonts links in any saved HTML (offline print must work).
 - Don't forget `translationOf` linking both MD files together.
 - Don't use rare emoji flags or complex ZWJ sequences on covers — cross-platform rendering is inconsistent.
 - Don't put `min-height` on `.page`. Don't use `position: absolute` for footer.
