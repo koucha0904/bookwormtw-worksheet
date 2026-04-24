@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import type { Lang } from '../i18n/ui';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  canonical: string;
+  altLangPath?: string;
+  alternates?: Array<{ lang: Lang; href: string }>;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  jsonLd?: object | object[];
+  publishedAt?: Date;
+  updatedAt?: Date;
+}
+
+const { lang, altLangPath, ...seoProps } = Astro.props;
+const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT;
+---
+
+<!doctype html>
+<html lang={lang === 'zh' ? 'zh-TW' : 'en'}>
+  <head>
+    <SEO lang={lang} {...seoProps} />
+    {adsenseClient && (
+      <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} crossorigin="anonymous"></script>
+    )}
+    <slot name="head" />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <Header lang={lang} altLangPath={altLangPath} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

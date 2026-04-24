@@ -1,0 +1,25 @@
+---
+import type { Lang } from '../i18n/ui';
+import { t, localizedPath } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-brand-100 bg-white/60 mt-16">
+  <div class="max-w-6xl mx-auto px-5 py-10 flex flex-col md:flex-row justify-between gap-6 text-sm text-brand-700">
+    <div>
+      <div class="font-display text-lg text-brand-800">{t(lang, 'site.name')}</div>
+      <p class="mt-1 max-w-md">{t(lang, 'site.tagline')}</p>
+    </div>
+    <div class="flex gap-6">
+      <a href={localizedPath(lang, '/worksheets')} class="hover:text-brand-900">{t(lang, 'nav.worksheets')}</a>
+      <a href={localizedPath(lang, '/topics')} class="hover:text-brand-900">{t(lang, 'nav.topics')}</a>
+      <a href={localizedPath(lang, '/about')} class="hover:text-brand-900">{t(lang, 'nav.about')}</a>
+    </div>
+  </div>
+  <div class="border-t border-brand-100 py-4 text-center text-xs text-brand-500">
+    {t(lang, 'footer.rights', { year })}
+  </div>
+</footer>

@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import WorksheetCard from '../../../components/WorksheetCard.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import { t, localizedPath, type Lang } from '../../../i18n/ui';
+import { collectionPageJsonLd, breadcrumbJsonLd } from '../../../lib/seo';
+
+export async function getStaticPaths() {
+  return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
+
+const allWorksheets = await getCollection('worksheets', (w) => w.data.lang === lang);
+const allTopics = await getCollection('topics', (t) => t.data.lang === lang);
+const topicMap = new Map(allTopics.map((t) => [t.id, t.data]));
+
+const sorted = allWorksheets.sort((a, b) => +b.data.publishedAt - +a.data.publishedAt);
+
+const title = t(lang, 'worksheets.title');
+const canonical = localizedPath(lang, '/worksheets');
+const description = t(lang, 'site.description');
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  canonical={canonical}
+  altLangPath={localizedPath(altLang, '/worksheets')}
+  alternates={[
+    { lang: 'zh', href: '/zh/worksheets' },
+    { lang: 'en', href: '/en/worksheets' },
+  ]}
+  jsonLd={[
+    collectionPageJsonLd(lang, title, canonical, description),
+    breadcrumbJsonLd([
+      { name: t(lang, 'nav.home'), url: localizedPath(lang, '/') },
+      { name: title, url: canonical },
+    ]),
+  ]}
+>
+  <div class="max-w-6xl mx-auto px-5 py-10">
+    <Breadcrumbs items={[
+      { href: localizedPath(lang, '/'), label: t(lang, 'nav.home') },
+      { label: title },
+    ]} />
+    <header class="mt-4 mb-8">
+      <h1 class="font-display text-3xl md:text-5xl text-brand-900">{title}</h1>
+      <p class="mt-2 text-brand-600">{t(lang, 'worksheets.count', { count: sorted.length })}</p>
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {sorted.map((w) => {
+        const topic = topicMap.get(w.data.topic.id);
+        const cleanSlug = w.data.slug.replace(/-en$/, '');
+        return (
+          <WorksheetCard
+            lang={lang}
+            slug={cleanSlug}
+            title={w.data.title}
+            description={w.data.description}
+            grade={w.data.grade}
+            coverEmoji={w.data.coverEmoji}
+            coverColor={w.data.coverColor}
+            topicTitle={topic?.title ?? ''}
+          />
+        );
+      })}
+    </div>
+
+    <AdSlot slot="footer" />
+  </div>
+</BaseLayout>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>大地瑰寶學習單 · 書蟲學習單</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 14mm 18mm 14mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: "Noto Sans TC", "PingFang TC", system-ui, sans-serif; color: #2f2018; }
+  .page { page-break-after: always; min-height: 260mm; position: relative; padding-bottom: 12mm; }
+  .page:last-child { page-break-after: auto; }
+  h1 { font-size: 30pt; margin: 0 0 4mm; color: #3e5a7a; line-height: 1.15; }
+  h2 { font-size: 17pt; margin: 5mm 0 3mm; color: #3e5a7a; border-bottom: 2px dashed #9bb2c8; padding-bottom: 2mm; }
+  h3 { font-size: 12.5pt; margin: 4mm 0 2mm; color: #3e5a7a; }
+  p, li { font-size: 11.5pt; line-height: 1.65; margin: 2mm 0; }
+  .hero { background: #eef2f7; border-radius: 10mm; padding: 10mm 12mm; text-align: center; }
+  .hero .emoji { font-size: 56pt; line-height: 1; }
+  .hero .subject { font-size: 14pt; color: #5c7390; margin-top: 3mm; }
+  .field { display: inline-block; border-bottom: 1.5px solid #7791ae; min-width: 42mm; height: 6mm; margin: 0 2mm; }
+  .box { border: 1.5px dashed #9bb2c8; border-radius: 3mm; padding: 4mm; margin: 3mm 0; }
+  .lined { background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 7.5mm, #d4dfeb 7.5mm, #d4dfeb 8mm); }
+  .fill { display: inline-block; border-bottom: 1.5px solid #7791ae; min-width: 22mm; padding: 0 2mm; }
+  .check { display: inline-block; width: 5mm; height: 5mm; border: 1.5px solid #5c7390; border-radius: 1mm; vertical-align: middle; margin-right: 2mm; }
+  .mohs { display: grid; grid-template-columns: 22mm 1fr 40mm; gap: 2mm 4mm; font-size: 10.5pt; }
+  .mohs .hd { font-weight: bold; color: #3e5a7a; background: #eef2f7; padding: 1.5mm 3mm; border-radius: 2mm; }
+  .mohs .cell { padding: 1.5mm 3mm; border-bottom: 1px dotted #c8d4e0; }
+  .obs-grid { display: grid; grid-template-columns: 50mm 1fr; gap: 0; border: 1.5px solid #9bb2c8; border-radius: 3mm; overflow: hidden; margin-top: 3mm; }
+  .obs-grid > div { padding: 3mm 4mm; border-bottom: 1px dashed #c8d4e0; font-size: 10.5pt; }
+  .obs-grid > div:nth-last-child(-n+2) { border-bottom: none; }
+  .obs-grid .unit { background: #f6f9fc; border-right: 1px dashed #c8d4e0; }
+  .obs-grid .unit b { color: #3e5a7a; display: block; font-size: 11pt; margin-bottom: 1mm; }
+  .obs-grid .unit span { color: #5c7390; font-size: 9.5pt; line-height: 1.4; }
+  .obs-grid .notes { min-height: 18mm; background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 6.5mm, #d4dfeb 6.5mm, #d4dfeb 7mm); }
+  .quiz { counter-reset: qnum; }
+  .quiz .q { margin: 3mm 0; font-size: 11pt; }
+  .quiz .q::before { counter-increment: qnum; content: "Q" counter(qnum) ". "; font-weight: bold; color: #3e5a7a; }
+  .challenge { background: #fff6e0; border: 1.5px solid #e8c877; border-radius: 3mm; padding: 3mm 4mm; margin: 3mm 0; font-size: 11pt; }
+  .challenge b { color: #a97a1e; }
+  .draw { border: 1.5px dashed #9bb2c8; border-radius: 3mm; min-height: 70mm; margin: 2mm 0; position: relative; }
+  .draw::after { content: "在這裡畫"; position: absolute; top: 3mm; left: 4mm; font-size: 9.5pt; color: #9bb2c8; }
+  .buddy { position: absolute; bottom: 14mm; right: 10mm; font-size: 30pt; opacity: 0.85; }
+  footer { position: absolute; bottom: 4mm; left: 0; right: 0; text-align: center; font-size: 9pt; color: #5c7390; }
+  .page-no { position: absolute; bottom: 4mm; right: 10mm; font-size: 9pt; color: #5c7390; }
+  .screen-only { display: none; }
+  @media screen {
+    body { background: #e6edf4; padding: 20px; }
+    .page { background: white; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin: 0 auto 20px; max-width: 210mm; padding: 14mm; }
+    .screen-only { display: block; text-align: center; padding: 10px 0 20px; color: #3e5a7a; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="screen-only">← 按 ⌘P 列印，或存成 PDF。列印時不會出現這行字。</div>
+
+<!-- PAGE 1 · 封面 + 出發前小筆記 -->
+<section class="page">
+  <div class="hero">
+    <div class="emoji">💎</div>
+    <h1>大地瑰寶學習單</h1>
+    <div class="subject">走進台中科博館的礦物世界</div>
+  </div>
+
+  <div style="margin-top: 7mm; font-size: 11.5pt;">
+    <p>我的名字： <span class="field"></span>　　參觀日期： <span class="field" style="min-width:32mm"></span></p>
+  </div>
+
+  <h2>礦物是什麼？</h2>
+  <p>礦物是地球用億萬年「長」出來的固體。它們有固定的化學成分與規則的晶體結構，所以同一種礦物，不管在臺灣、巴西或月球上撿到，都會長得很像。今天你會在科博館看到 1800 多件礦物，它們都是地球寫給我們的小詩。</p>
+
+  <h3>莫氏硬度對照小卡（身邊的東西怎麼比？）</h3>
+  <div class="mohs">
+    <div class="hd">硬度</div><div class="hd">代表礦物</div><div class="hd">身邊的東西</div>
+    <div class="cell">1</div><div class="cell">滑石</div><div class="cell">指甲能輕鬆刮下</div>
+    <div class="cell">2</div><div class="cell">石膏</div><div class="cell">指甲（約 2.5）剛好刮得動</div>
+    <div class="cell">3</div><div class="cell">方解石</div><div class="cell">十元硬幣（約 3.5）</div>
+    <div class="cell">5</div><div class="cell">磷灰石</div><div class="cell">玻璃（約 5.5）</div>
+    <div class="cell">7</div><div class="cell">石英、紫水晶</div><div class="cell">小刀也刮不動</div>
+    <div class="cell">10</div><div class="cell">鑽石</div><div class="cell">地球上最硬的礦物</div>
+  </div>
+
+  <h3>今天我最想看到的（勾 3 個）</h3>
+  <p style="font-size: 11pt;">
+    <span class="check"></span>巨大紫水晶洞　　<span class="check"></span>會發光的螢光礦物　　<span class="check"></span>北投石（臺灣寶藏）<br>
+    <span class="check"></span>5 噸重的鐘乳石林　　<span class="check"></span>阿波羅 11 號月岩　　<span class="check"></span>豐田閃玉（臺灣玉）
+  </p>
+
+  <div class="buddy">🦉</div>
+  <footer>worksheet.bookwormtw.com · 書蟲學習單</footer>
+  <div class="page-no">1</div>
+</section>
+
+<!-- PAGE 2 · 展區觀察筆記 -->
+<section class="page">
+  <h2>展區觀察筆記</h2>
+  <p>走到每個單元前，停下來看 1 分鐘，然後寫下你的觀察：顏色、形狀、大小、像什麼？</p>
+
+  <div class="obs-grid">
+    <div class="unit">
+      <b>① 礦物演化</b>
+      <span>找找看入口的「帶狀鐵岩」（290 公分高），它記錄了地球從沒有氧氣，變成有氧氣的故事。</span>
+    </div>
+    <div class="notes"></div>
+
+    <div class="unit">
+      <b>② 晶體對稱之美</b>
+      <span>礦物的晶體有立方、六角、菱形⋯⋯等形狀。挑一顆你覺得最對稱的，寫下它的名字。</span>
+    </div>
+    <div class="notes"></div>
+
+    <div class="unit">
+      <b>③ 晶體色澤之美</b>
+      <span>別錯過那塊 1700 公斤的螢光礦物！在短波紫外線下，綠色的是矽鋅礦，紅色的是方解石。</span>
+    </div>
+    <div class="notes"></div>
+
+    <div class="unit">
+      <b>④ 臺灣寶藏</b>
+      <span>北投石、豐田閃玉、九份自然金都在這區。北投石是少數以臺灣地名命名的礦物。</span>
+    </div>
+    <div class="notes"></div>
+
+    <div class="unit">
+      <b>⑤ 世界礦區</b>
+      <span>找找心型的大紫水晶洞，還有來自巴西、印度的壯觀晶體。</span>
+    </div>
+    <div class="notes"></div>
+  </div>
+
+  <div class="challenge"><b>🔎 小挑戰：</b>在整個展場找一顆「看起來像愛心」的礦物，把它寫下來：<span class="fill" style="min-width:60mm"></span></div>
+
+  <div class="buddy">🦉</div>
+  <footer>worksheet.bookwormtw.com · 書蟲學習單</footer>
+  <div class="page-no">2</div>
+</section>
+
+<!-- PAGE 3 · 我最愛的一顆 + 畫一畫 + 冷知識 -->
+<section class="page">
+  <h2>我今天最愛的一顆礦物</h2>
+
+  <div style="font-size: 11pt;">
+    <p>它的名字： <span class="fill" style="min-width:60mm"></span></p>
+    <p>產地： <span class="fill" style="min-width:40mm"></span>　　莫氏硬度： <span class="fill" style="min-width:18mm"></span></p>
+    <p>我喜歡它的原因： <span class="fill" style="min-width:95mm"></span></p>
+  </div>
+
+  <h3>把它畫下來</h3>
+  <div class="draw"></div>
+
+  <h3>冷知識小考</h3>
+  <div class="quiz">
+    <div class="q">北投石為什麼對臺灣很特別？<br><span class="fill" style="min-width:140mm"></span></div>
+    <div class="q">螢光礦物為什麼會發光？<br><span class="fill" style="min-width:140mm"></span></div>
+    <div class="q">月岩是怎麼來到科博館的？<br><span class="fill" style="min-width:140mm"></span></div>
+  </div>
+
+  <h3>離館前的一句話</h3>
+  <div class="box lined" style="min-height: 22mm"></div>
+
+  <div class="buddy">🦉</div>
+  <footer>worksheet.bookwormtw.com · 書蟲學習單</footer>
+  <div class="page-no">3</div>
+</section>
+
+</body>
+</html>

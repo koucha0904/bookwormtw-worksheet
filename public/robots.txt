@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Major AI / Answer engines — explicitly allowed for AEO
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://worksheet.bookwormtw.com/sitemap-index.xml

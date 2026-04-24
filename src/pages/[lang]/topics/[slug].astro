@@ -1,0 +1,92 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import WorksheetCard from '../../../components/WorksheetCard.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import { t, localizedPath, type Lang } from '../../../i18n/ui';
+import { collectionPageJsonLd, breadcrumbJsonLd } from '../../../lib/seo';
+
+export async function getStaticPaths() {
+  const topics = await getCollection('topics');
+  return topics.map((tpc) => ({
+    params: {
+      lang: tpc.data.lang,
+      slug: tpc.data.slug.replace(/-en$/, ''),
+    },
+    props: { topic: tpc },
+  }));
+}
+
+const { topic } = Astro.props;
+const lang = topic.data.lang;
+const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
+const cleanSlug = topic.data.slug.replace(/-en$/, '');
+const { Content } = await render(topic);
+
+const worksheets = (await getCollection('worksheets', (w) => w.data.lang === lang && w.data.topic.id === topic.id))
+  .sort((a, b) => +b.data.publishedAt - +a.data.publishedAt);
+
+const canonical = localizedPath(lang, `/topics/${cleanSlug}`);
+---
+
+<BaseLayout
+  lang={lang}
+  title={topic.data.title}
+  description={topic.data.description}
+  canonical={canonical}
+  altLangPath={localizedPath(altLang, `/topics/${cleanSlug}`)}
+  alternates={[
+    { lang: 'zh', href: localizedPath('zh', `/topics/${cleanSlug}`) },
+    { lang: 'en', href: localizedPath('en', `/topics/${cleanSlug}`) },
+  ]}
+  jsonLd={[
+    collectionPageJsonLd(lang, topic.data.title, canonical, topic.data.description),
+    breadcrumbJsonLd([
+      { name: t(lang, 'nav.home'), url: localizedPath(lang, '/') },
+      { name: t(lang, 'nav.topics'), url: localizedPath(lang, '/topics') },
+      { name: topic.data.title, url: canonical },
+    ]),
+  ]}
+>
+  <div class="max-w-6xl mx-auto px-5 py-10">
+    <Breadcrumbs items={[
+      { href: localizedPath(lang, '/'), label: t(lang, 'nav.home') },
+      { href: localizedPath(lang, '/topics'), label: t(lang, 'nav.topics') },
+      { label: topic.data.title },
+    ]} />
+
+    <header class="mt-5 flex items-start gap-5">
+      <div class="text-6xl">{topic.data.emoji}</div>
+      <div>
+        <h1 class="font-display text-3xl md:text-5xl text-brand-900">{topic.data.title}</h1>
+        <p class="mt-3 text-brand-700 leading-relaxed max-w-3xl">{topic.data.description}</p>
+      </div>
+    </header>
+
+    <div class="prose-worksheet max-w-3xl mt-6">
+      <Content />
+    </div>
+
+    <h2 class="font-display text-2xl text-brand-900 mt-12 mb-5">
+      {t(lang, 'topics.count', { count: worksheets.length })}
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {worksheets.map((w) => (
+        <WorksheetCard
+          lang={lang}
+          slug={w.data.slug.replace(/-en$/, '')}
+          title={w.data.title}
+          description={w.data.description}
+          grade={w.data.grade}
+          coverEmoji={w.data.coverEmoji}
+          coverColor={w.data.coverColor}
+          topicTitle={topic.data.title}
+        />
+      ))}
+    </div>
+
+    <AdSlot slot="footer" />
+  </div>
+</BaseLayout>

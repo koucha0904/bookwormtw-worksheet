@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  lang="zh"
+  title="找不到這一頁"
+  description="這一頁不存在，回到首頁繼續探索。"
+  canonical="/404"
+>
+  <div class="max-w-xl mx-auto px-5 py-24 text-center">
+    <div class="text-7xl mb-6">🗺️</div>
+    <h1 class="font-display text-3xl md:text-5xl text-brand-900">找不到這一頁</h1>
+    <p class="mt-4 text-brand-700">這張學習單好像迷路了。<br/>Looks like this worksheet wandered off.</p>
+    <div class="mt-8 flex justify-center gap-3">
+      <a href="/zh" class="px-5 py-2.5 rounded-full bg-brand-700 text-white hover:bg-brand-800">回首頁</a>
+      <a href="/en" class="px-5 py-2.5 rounded-full border border-brand-300 hover:bg-brand-100">Home</a>
+    </div>
+  </div>
+</BaseLayout>

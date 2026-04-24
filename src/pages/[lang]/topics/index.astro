@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { t, localizedPath, type Lang } from '../../../i18n/ui';
+import { collectionPageJsonLd, breadcrumbJsonLd } from '../../../lib/seo';
+
+export async function getStaticPaths() {
+  return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
+
+const topics = (await getCollection('topics', (t) => t.data.lang === lang))
+  .sort((a, b) => a.data.order - b.data.order);
+const worksheets = await getCollection('worksheets', (w) => w.data.lang === lang);
+
+const topicsWithCount = topics.map((tpc) => ({
+  ...tpc.data,
+  count: worksheets.filter((w) => w.data.topic.id === tpc.id).length,
+}));
+
+const title = t(lang, 'topics.title');
+const canonical = localizedPath(lang, '/topics');
+const description = t(lang, 'site.description');
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  canonical={canonical}
+  altLangPath={localizedPath(altLang, '/topics')}
+  alternates={[
+    { lang: 'zh', href: '/zh/topics' },
+    { lang: 'en', href: '/en/topics' },
+  ]}
+  jsonLd={[
+    collectionPageJsonLd(lang, title, canonical, description),
+    breadcrumbJsonLd([
+      { name: t(lang, 'nav.home'), url: localizedPath(lang, '/') },
+      { name: title, url: canonical },
+    ]),
+  ]}
+>
+  <div class="max-w-6xl mx-auto px-5 py-10">
+    <Breadcrumbs items={[
+      { href: localizedPath(lang, '/'), label: t(lang, 'nav.home') },
+      { label: title },
+    ]} />
+    <h1 class="font-display text-3xl md:text-5xl text-brand-900 mt-4 mb-8">{title}</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      {topicsWithCount.map((topic) => (
+        <a href={localizedPath(lang, `/topics/${topic.slug.replace(/-en$/, '')}`)}
+           class="flex items-center gap-5 p-6 rounded-2xl bg-white border border-brand-100 hover:border-brand-300 hover:shadow transition no-underline">
+          <div class="text-5xl">{topic.emoji}</div>
+          <div class="flex-1">
+            <h2 class="font-display text-2xl text-brand-900">{topic.title}</h2>
+            <p class="text-sm text-brand-600 mt-1.5">{topic.description}</p>
+            <p class="text-xs text-brand-500 mt-2">{t(lang, 'topics.count', { count: topic.count })}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+interface Props {
+  slot: 'top' | 'in-content' | 'sidebar' | 'footer';
+  label?: string;
+}
+const { slot, label = 'Advertisement' } = Astro.props;
+
+const adClientId = import.meta.env.PUBLIC_ADSENSE_CLIENT;
+const slotIds: Record<Props['slot'], string | undefined> = {
+  top: import.meta.env.PUBLIC_ADSENSE_SLOT_TOP,
+  'in-content': import.meta.env.PUBLIC_ADSENSE_SLOT_INCONTENT,
+  sidebar: import.meta.env.PUBLIC_ADSENSE_SLOT_SIDEBAR,
+  footer: import.meta.env.PUBLIC_ADSENSE_SLOT_FOOTER,
+};
+const slotId = slotIds[slot];
+const isProduction = adClientId && slotId;
+---
+
+<div class="ad-slot w-full" data-label={label} data-slot={slot}>
+  {isProduction ? (
+    <ins
+      class="adsbygoogle"
+      style="display:block"
+      data-ad-client={adClientId}
+      data-ad-slot={slotId}
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    ></ins>
+  ) : (
+    <div class="w-full max-w-3xl h-24 bg-brand-100/60 border border-dashed border-brand-300 rounded-xl flex items-center justify-center text-brand-500 text-sm">
+      AdSense slot · {slot}
+    </div>
+  )}
+</div>
+
+{isProduction && (
+  <script is:inline>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+)}

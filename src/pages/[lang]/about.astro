@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { t, localizedPath, type Lang } from '../../i18n/ui';
+import { breadcrumbJsonLd } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  return [{ params: { lang: 'zh' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
+const canonical = localizedPath(lang, '/about');
+const title = t(lang, 'nav.about');
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={t(lang, 'site.description')}
+  canonical={canonical}
+  altLangPath={localizedPath(altLang, '/about')}
+  alternates={[
+    { lang: 'zh', href: '/zh/about' },
+    { lang: 'en', href: '/en/about' },
+  ]}
+  jsonLd={breadcrumbJsonLd([
+    { name: t(lang, 'nav.home'), url: localizedPath(lang, '/') },
+    { name: title, url: canonical },
+  ])}
+>
+  <div class="max-w-3xl mx-auto px-5 py-10">
+    <Breadcrumbs items={[
+      { href: localizedPath(lang, '/'), label: t(lang, 'nav.home') },
+      { label: title },
+    ]} />
+    <h1 class="font-display text-3xl md:text-5xl text-brand-900 mt-4 mb-6">{t(lang, 'home.about.title')}</h1>
+    <div class="prose-worksheet">
+      <p>{t(lang, 'home.about.body')}</p>
+      {lang === 'zh' ? (
+        <>
+          <h2>可以自由使用嗎？</h2>
+          <p>所有學習單皆免費提供給家庭、老師、安親班與公益團體使用。唯一的請求是：請勿將學習單用於商業販售或二次散佈時移除來源。</p>
+          <h2>聯絡我們</h2>
+          <p>有建議、合作、想點國家嗎？歡迎寫信到 hello@bookwormtw.com。</p>
+        </>
+      ) : (
+        <>
+          <h2>Can I use these for free?</h2>
+          <p>Yes — all worksheets are free for families, classrooms, after-school programs, and non-profits. We just ask that you don't resell them or strip the source when redistributing.</p>
+          <h2>Contact</h2>
+          <p>Suggestions, collaborations, or a country you'd love to see? Email hello@bookwormtw.com.</p>
+        </>
+      )}
+    </div>
+  </div>
+</BaseLayout>

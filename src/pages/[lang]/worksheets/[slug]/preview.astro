@@ -1,0 +1,209 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { Lang } from '../../../../i18n/ui';
+import { t } from '../../../../i18n/ui';
+
+export async function getStaticPaths() {
+  const worksheets = await getCollection('worksheets');
+  return worksheets.map((w) => ({
+    params: {
+      lang: w.data.lang,
+      slug: w.data.slug.replace(/-en$/, ''),
+    },
+    props: { worksheet: w },
+  }));
+}
+
+const { worksheet } = Astro.props;
+const lang = worksheet.data.lang;
+const { Content } = await render(worksheet);
+
+const allTopics = await getCollection('topics', (t) => t.data.lang === lang);
+const topic = allTopics.find((t) => t.id === worksheet.data.topic.id);
+
+const formattedDate = new Intl.DateTimeFormat(lang === 'zh' ? 'zh-TW' : 'en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+}).format(worksheet.data.updatedAt ?? worksheet.data.publishedAt);
+---
+
+<!doctype html>
+<html lang={lang === 'zh' ? 'zh-TW' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{worksheet.data.title} — Preview</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style is:global>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: #e5e7eb;
+        font-family: 'Noto Sans TC', 'Noto Sans', system-ui, sans-serif;
+        color: #2f2018;
+        padding: 32px 24px 48px;
+      }
+
+      /* ── A4 paper ── */
+      .page {
+        background: #fff;
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto 24px;
+        padding: 14mm 14mm 18mm;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+        border-radius: 3px;
+        position: relative;
+        page-break-after: always;
+      }
+
+      /* ── Cover page ── */
+      .cover {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 260mm;
+        text-align: center;
+        gap: 20px;
+        border-radius: 4px;
+      }
+      .cover-emoji { font-size: 96pt; line-height: 1; }
+      .cover-site  { font-size: 11pt; color: #a9773f; letter-spacing: .08em; text-transform: uppercase; }
+      .cover-topic { font-size: 13pt; color: #6b4a2a; margin-top: 4px; }
+      .cover-title {
+        font-family: 'Fraunces', 'Noto Serif TC', serif;
+        font-size: 28pt;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #2f2018;
+        max-width: 160mm;
+      }
+      .cover-grade { font-size: 11pt; color: #8a5f33; background: #f3e8d5; padding: 4px 14px; border-radius: 99px; }
+      .cover-desc  { font-size: 11pt; color: #6b4a2a; line-height: 1.6; max-width: 150mm; }
+      .cover-date  { font-size: 9pt; color: #a9773f; }
+      .cover-pdf   {
+        display: inline-block;
+        background: #8a5f33; color: #fff;
+        font-size: 11pt; padding: 8px 22px;
+        border-radius: 99px; text-decoration: none;
+      }
+
+      /* ── Content pages ── */
+      .content-page { display: flex; flex-direction: column; }
+      .content-page h2 {
+        font-family: 'Fraunces', serif;
+        font-size: 18pt; font-weight: 700;
+        color: #4d3521; border-bottom: 2px solid #e6cfa9;
+        padding-bottom: 4px; margin: 0 0 12px;
+      }
+      .content-page h3 {
+        font-family: 'Fraunces', serif;
+        font-size: 13pt; font-weight: 600;
+        color: #6b4a2a; margin: 14px 0 6px;
+      }
+      .content-page p  { font-size: 11pt; line-height: 1.7; margin: 6px 0; color: #3a2a1e; }
+      .content-page ul, .content-page ol { margin: 6px 0 6px 18px; }
+      .content-page li { font-size: 11pt; line-height: 1.7; color: #3a2a1e; }
+      .content-page ul { list-style: disc; }
+      .content-page ol { list-style: decimal; }
+      .content-page strong { font-weight: 600; color: #2f2018; }
+
+      /* ── Page footer ── */
+      .page-footer {
+        position: absolute;
+        bottom: 8mm;
+        left: 14mm; right: 14mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 8pt;
+        color: #c4925a;
+        border-top: 1px solid #e6cfa9;
+        padding-top: 3mm;
+      }
+
+      /* ── Preview toolbar ── */
+      .toolbar {
+        position: fixed;
+        bottom: 20px; right: 20px;
+        display: flex; gap: 8px; z-index: 99;
+      }
+      .toolbar a, .toolbar button {
+        background: #4d3521; color: #fff;
+        border: none; cursor: pointer;
+        padding: 10px 16px; border-radius: 8px;
+        font-size: 13px; text-decoration: none;
+        box-shadow: 0 2px 12px rgba(0,0,0,.25);
+      }
+      .toolbar a:hover, .toolbar button:hover { background: #2f2018; }
+
+      @media print {
+        body { background: #fff; padding: 0; }
+        .toolbar { display: none; }
+        .page { box-shadow: none; margin: 0; border-radius: 0; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Cover page -->
+    <div class="page">
+      <div class="cover" style={`background-color: ${worksheet.data.coverColor}`}>
+        <div class="cover-site">worksheet.bookwormtw.com</div>
+        <div class="cover-emoji">{worksheet.data.coverEmoji}</div>
+        {topic && <div class="cover-topic">{topic.data.emoji} {topic.data.title}</div>}
+        <h1 class="cover-title">{worksheet.data.title}</h1>
+        <div class="cover-grade">{t(lang, `grade.${worksheet.data.grade}` as `grade.lower`)}</div>
+        <p class="cover-desc">{worksheet.data.description}</p>
+        {worksheet.data.pdf && (
+          <a class="cover-pdf" href={worksheet.data.pdf}>⬇ {t(lang, 'worksheet.download_pdf')}</a>
+        )}
+        <div class="cover-date">{t(lang, 'worksheet.updated')}: {formattedDate}</div>
+      </div>
+      <footer class="page-footer">
+        <span>worksheet.bookwormtw.com</span>
+        <span>{worksheet.data.title}</span>
+        <span>1</span>
+      </footer>
+    </div>
+
+    <!-- Content page(s) -->
+    <div class="page content-page">
+      <Content />
+      <footer class="page-footer">
+        <span>worksheet.bookwormtw.com</span>
+        <span>{worksheet.data.title}</span>
+        <span>2</span>
+      </footer>
+    </div>
+
+    <!-- FAQ page -->
+    {worksheet.data.faq.length > 0 && (
+      <div class="page content-page">
+        <h2>{t(lang, 'worksheet.faq.title')}</h2>
+        {worksheet.data.faq.map((item, i) => (
+          <div style="margin-bottom: 14px;">
+            <h3>Q{i + 1}. {item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
+        <footer class="page-footer">
+          <span>worksheet.bookwormtw.com</span>
+          <span>{worksheet.data.title}</span>
+          <span>3</span>
+        </footer>
+      </div>
+    )}
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <button onclick="window.print()">🖨 {lang === 'zh' ? '列印' : 'Print'}</button>
+      <a href={`/${lang}/worksheets/${worksheet.data.slug.replace(/-en$/, '')}`}>
+        ✕ {lang === 'zh' ? '關閉' : 'Close'}
+      </a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import AdSlot from '../../../components/AdSlot.astro';
+import WorksheetCard from '../../../components/WorksheetCard.astro';
+import { t, localizedPath, type Lang } from '../../../i18n/ui';
+import { worksheetJsonLd, faqJsonLd, breadcrumbJsonLd } from '../../../lib/seo';
+
+export async function getStaticPaths() {
+  const worksheets = await getCollection('worksheets');
+  return worksheets.map((w) => ({
+    params: {
+      lang: w.data.lang,
+      slug: w.data.slug.replace(/-en$/, ''),
+    },
+    props: { worksheet: w },
+  }));
+}
+
+const { worksheet } = Astro.props;
+const lang = worksheet.data.lang;
+const altLang: Lang = lang === 'zh' ? 'en' : 'zh';
+const { Content } = await render(worksheet);
+
+const allWorksheets = await getCollection('worksheets', (w) => w.data.lang === lang);
+const allTopics = await getCollection('topics', (t) => t.data.lang === lang);
+const topic = allTopics.find((t) => t.id === worksheet.data.topic.id);
+const cleanSlug = worksheet.data.slug.replace(/-en$/, '');
+
+const related = allWorksheets
+  .filter((w) => w.id !== worksheet.id && w.data.topic.id === worksheet.data.topic.id)
+  .slice(0, 3);
+
+const canonical = localizedPath(lang, `/worksheets/${cleanSlug}`);
+const altLangPath = localizedPath(altLang, `/worksheets/${cleanSlug}`);
+
+const topicTitle = topic?.data.title ?? '';
+const topicSlug = topic?.data.slug.replace(/-en$/, '') ?? '';
+
+const formattedUpdated = new Intl.DateTimeFormat(lang === 'zh' ? 'zh-TW' : 'en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+}).format(worksheet.data.updatedAt ?? worksheet.data.publishedAt);
+
+const jsonLd = [
+  // worksheetJsonLd returns [LearningResource, Article] — spread both in
+  ...worksheetJsonLd({
+    lang,
+    slug: cleanSlug,
+    title: worksheet.data.title,
+    description: worksheet.data.description,
+    grade: worksheet.data.grade,
+    topicTitle,
+    tags: worksheet.data.tags,
+    publishedAt: worksheet.data.publishedAt,
+    updatedAt: worksheet.data.updatedAt,
+  }),
+  breadcrumbJsonLd([
+    { name: t(lang, 'nav.home'), url: localizedPath(lang, '/') },
+    { name: t(lang, 'nav.worksheets'), url: localizedPath(lang, '/worksheets') },
+    { name: worksheet.data.title, url: canonical },
+  ]),
+];
+const faqLd = faqJsonLd(worksheet.data.faq);
+if (faqLd) jsonLd.push(faqLd);
+---
+
+<BaseLayout
+  lang={lang}
+  title={worksheet.data.title}
+  description={worksheet.data.description}
+  canonical={canonical}
+  altLangPath={altLangPath}
+  alternates={[
+    { lang: 'zh', href: localizedPath('zh', `/worksheets/${cleanSlug}`) },
+    { lang: 'en', href: localizedPath('en', `/worksheets/${cleanSlug}`) },
+  ]}
+  ogType="article"
+  jsonLd={jsonLd}
+  publishedAt={worksheet.data.publishedAt}
+  updatedAt={worksheet.data.updatedAt}
+>
+  <article class="max-w-4xl mx-auto px-5 py-8">
+    <Breadcrumbs items={[
+      { href: localizedPath(lang, '/'), label: t(lang, 'nav.home') },
+      { href: localizedPath(lang, '/worksheets'), label: t(lang, 'nav.worksheets') },
+      { label: worksheet.data.title },
+    ]} />
+
+    <header class="mt-5">
+      <div class="flex items-center gap-2 text-sm text-brand-600 mb-3">
+        {topic && (
+          <a href={localizedPath(lang, `/topics/${topicSlug}`)}
+             class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-100 hover:bg-brand-200 text-brand-800 no-underline">
+            <span>{topic.data.emoji}</span>
+            <span>{topicTitle}</span>
+          </a>
+        )}
+        <span class="text-brand-400">·</span>
+        <span>{t(lang, `grade.${worksheet.data.grade}` as `grade.lower`)}</span>
+      </div>
+      <h1 class="font-display text-3xl md:text-5xl text-brand-900 leading-tight">
+        {worksheet.data.title}
+      </h1>
+      <p class="mt-4 text-lg text-brand-700 leading-relaxed">{worksheet.data.description}</p>
+    </header>
+
+    <!-- Preview + Download block -->
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Left: scaled iframe preview -->
+      <div>
+        <p class="text-xs uppercase tracking-widest text-brand-500 mb-2">
+          {lang === 'zh' ? '學習單預覽' : 'Worksheet preview'}
+        </p>
+        <!-- Outer container fixes the display size; inner iframe is A4 width scaled down -->
+        <div class="relative rounded-2xl overflow-hidden border border-brand-200 shadow-md bg-white"
+             style="height: 320px;">
+          <iframe
+            src={`/${lang}/worksheets/${cleanSlug}/preview`}
+            title={worksheet.data.title}
+            scrolling="no"
+            style="width: 794px; height: 900px; transform: scale(0.403); transform-origin: top left; border: none; pointer-events: none;"
+          ></iframe>
+          <!-- Click overlay to open full preview -->
+          <a href={`/${lang}/worksheets/${cleanSlug}/preview`}
+             target="_blank"
+             class="absolute inset-0 flex items-end justify-center pb-4 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity no-underline">
+            <span class="bg-white text-brand-900 font-medium text-sm px-4 py-2 rounded-full shadow">
+              {lang === 'zh' ? '🔍 全螢幕預覽' : '🔍 Full preview'}
+            </span>
+          </a>
+        </div>
+        <a href={`/${lang}/worksheets/${cleanSlug}/preview`}
+           target="_blank"
+           class="mt-2 inline-flex items-center gap-1 text-sm text-brand-600 hover:text-brand-900">
+          {lang === 'zh' ? '在新視窗中預覽 →' : 'Open full preview →'}
+        </a>
+      </div>
+
+      <!-- Right: download + meta -->
+      <div class="rounded-3xl p-8 flex flex-col justify-center gap-4"
+           style={`background-color: ${worksheet.data.coverColor}`}>
+        <div class="text-7xl text-center">{worksheet.data.coverEmoji}</div>
+        {worksheet.data.pdf && (
+          <a href={worksheet.data.pdf} download
+             class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand-800 text-white hover:bg-brand-900 font-medium no-underline">
+            ⬇ {t(lang, 'worksheet.download_pdf')}
+          </a>
+        )}
+        <p class="text-sm text-brand-700 text-center">{t(lang, 'worksheet.download_hint')}</p>
+        <div class="text-xs text-brand-600 text-center">
+          {t(lang, 'worksheet.updated')}: {formattedUpdated}
+        </div>
+      </div>
+
+    </div>
+
+    <AdSlot slot="top" />
+
+    <div class="prose-worksheet mt-4">
+      <Content />
+    </div>
+
+    <AdSlot slot="in-content" />
+
+    {worksheet.data.faq.length > 0 && (
+      <section class="mt-12">
+        <h2 class="font-display text-2xl text-brand-900 mb-4">{t(lang, 'worksheet.faq.title')}</h2>
+        <div class="rounded-2xl border border-brand-100 bg-white divide-y divide-brand-100">
+          {worksheet.data.faq.map((item) => (
+            <details class="group p-5">
+              <summary class="cursor-pointer list-none flex items-start justify-between gap-4">
+                <span class="font-medium text-brand-900">{item.q}</span>
+                <span class="text-brand-400 text-xl group-open:rotate-45 transition">+</span>
+              </summary>
+              <p class="mt-3 text-brand-700 leading-7">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {worksheet.data.tags.length > 0 && (
+      <div class="mt-8 flex flex-wrap gap-2">
+        {worksheet.data.tags.map((tag) => (
+          <span class="px-3 py-1 rounded-full text-xs bg-brand-100 text-brand-700">#{tag}</span>
+        ))}
+      </div>
+    )}
+
+    {related.length > 0 && (
+      <section class="mt-16">
+        <h2 class="font-display text-2xl text-brand-900 mb-5">{t(lang, 'worksheet.related.title')}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {related.map((w) => (
+            <WorksheetCard
+              lang={lang}
+              slug={w.data.slug.replace(/-en$/, '')}
+              title={w.data.title}
+              description={w.data.description}
+              grade={w.data.grade}
+              coverEmoji={w.data.coverEmoji}
+              coverColor={w.data.coverColor}
+              topicTitle={topicTitle}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <AdSlot slot="footer" />
+  </article>
+</BaseLayout>

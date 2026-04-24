@@ -1,0 +1,46 @@
+---
+import type { Lang } from '../i18n/ui';
+import { t, localizedPath } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  altLangPath?: string;
+}
+const { lang, altLangPath } = Astro.props;
+const otherLang: Lang = lang === 'zh' ? 'en' : 'zh';
+const switchPath = altLangPath ?? localizedPath(otherLang, '/');
+const navItems = [
+  { href: localizedPath(lang, '/'), label: t(lang, 'nav.home') },
+  { href: localizedPath(lang, '/worksheets'), label: t(lang, 'nav.worksheets') },
+  { href: localizedPath(lang, '/topics'), label: t(lang, 'nav.topics') },
+  { href: localizedPath(lang, '/about'), label: t(lang, 'nav.about') },
+];
+---
+
+<header class="border-b border-brand-100 bg-brand-50/80 backdrop-blur sticky top-0 z-20">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+    <a href={localizedPath(lang, '/')} class="flex items-center gap-2 no-underline">
+      <span class="text-2xl">📚</span>
+      <span class="font-display text-xl text-brand-800">{t(lang, 'site.name')}</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-5 text-sm">
+      {navItems.map((item) => (
+        <a href={item.href} class="text-brand-700 hover:text-brand-900">{item.label}</a>
+      ))}
+      <a href={switchPath} class="ml-2 px-3 py-1.5 rounded-full border border-brand-300 text-brand-700 hover:bg-brand-100 text-xs">
+        {t(lang, 'nav.switch_lang')}
+      </a>
+    </nav>
+    <details class="md:hidden relative">
+      <summary class="cursor-pointer list-none px-3 py-2 border border-brand-300 rounded-md text-sm">☰</summary>
+      <div class="absolute right-0 mt-2 w-56 bg-white border border-brand-200 rounded-lg shadow-lg p-2 flex flex-col gap-1 text-sm">
+        {navItems.map((item) => (
+          <a href={item.href} class="px-3 py-2 rounded hover:bg-brand-50">{item.label}</a>
+        ))}
+        <a href={switchPath} class="px-3 py-2 rounded hover:bg-brand-50 border-t border-brand-100 mt-1">
+          {t(lang, 'nav.switch_lang')}
+        </a>
+      </div>
+    </details>
+  </div>
+</header>

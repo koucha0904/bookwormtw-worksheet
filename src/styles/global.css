@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    font-family: theme('fontFamily.sans');
+    background-color: theme('colors.brand.50');
+    color: theme('colors.brand.900');
+    scroll-behavior: smooth;
+  }
+  body {
+    min-height: 100vh;
+  }
+  h1, h2, h3, h4 {
+    font-family: theme('fontFamily.display');
+    letter-spacing: -0.01em;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+}
+
+@layer components {
+  .prose-worksheet h2 {
+    @apply text-2xl mt-10 mb-3 text-brand-800;
+  }
+  .prose-worksheet h3 {
+    @apply text-xl mt-6 mb-2 text-brand-800;
+  }
+  .prose-worksheet p {
+    @apply leading-7 my-3 text-brand-800;
+  }
+  .prose-worksheet ul, .prose-worksheet ol {
+    @apply my-3 ml-5 leading-7;
+  }
+  .prose-worksheet ul { list-style: disc; }
+  .prose-worksheet ol { list-style: decimal; }
+  .prose-worksheet li { @apply my-1; }
+  .prose-worksheet strong { @apply text-brand-900 font-semibold; }
+  .prose-worksheet a { @apply text-brand-600 underline hover:text-brand-800; }
+}
+
+.ad-slot {
+  @apply my-8 flex flex-col items-center;
+}
+.ad-slot::before {
+  content: attr(data-label);
+  @apply text-[11px] uppercase tracking-widest text-brand-400 mb-1;
+}
