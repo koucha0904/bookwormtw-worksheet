@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import AdSlot from '../../../components/AdSlot.astro';
 import WorksheetCard from '../../../components/WorksheetCard.astro';
 import { t, localizedPath, type Lang } from '../../../i18n/ui';
 import { worksheetJsonLd, faqJsonLd, breadcrumbJsonLd } from '../../../lib/seo';
@@ -183,13 +182,9 @@ if (faqLd) jsonLd.push(faqLd);
       )}
     </section>
 
-    <AdSlot slot="top" />
-
     <div class="prose-worksheet mt-4">
       <Content />
     </div>
-
-    <AdSlot slot="in-content" />
 
     {worksheet.data.faq.length > 0 && (
       <section class="mt-12">
@@ -236,6 +231,5 @@ if (faqLd) jsonLd.push(faqLd);
       </section>
     )}
 
-    <AdSlot slot="footer" />
   </article>
 </BaseLayout>
