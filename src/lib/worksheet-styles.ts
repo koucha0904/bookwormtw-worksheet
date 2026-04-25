@@ -21,12 +21,12 @@ export interface WorksheetStyle {
 
 const LABEL_MAP: Record<string, Record<Lang, string>> = {
   'boy-explorer': {
-    zh: '男孩探險版',
-    en: 'Boy Explorer',
+    zh: '藍調版',
+    en: 'Blue Edition',
   },
   'girl-mission': {
-    zh: '女孩任務版',
-    en: 'Girl Mission',
+    zh: '玫瑰版',
+    en: 'Rose Edition',
   },
 };
 
