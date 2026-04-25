@@ -20,14 +20,6 @@ export interface WorksheetStyle {
 }
 
 const LABEL_MAP: Record<string, Record<Lang, string>> = {
-  'mission-journal': {
-    zh: '任務日記版',
-    en: 'Mission Journal',
-  },
-  'adventure-guide': {
-    zh: '探險指南版',
-    en: 'Adventure Guide',
-  },
   'boy-explorer': {
     zh: '男孩探險版',
     en: 'Boy Explorer',
@@ -38,7 +30,7 @@ const LABEL_MAP: Record<string, Record<Lang, string>> = {
   },
 };
 
-const STYLE_ORDER = ['boy-explorer', 'girl-mission', 'mission-journal', 'adventure-guide'];
+const STYLE_ORDER = ['boy-explorer', 'girl-mission'];
 
 function titleCaseStyle(id: string) {
   return id
