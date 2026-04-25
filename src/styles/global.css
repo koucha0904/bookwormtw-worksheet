@@ -43,11 +43,3 @@
   .prose-worksheet strong { @apply text-brand-900 font-semibold; }
   .prose-worksheet a { @apply text-brand-600 underline hover:text-brand-800; }
 }
-
-.ad-slot {
-  @apply my-8 flex flex-col items-center;
-}
-.ad-slot::before {
-  content: attr(data-label);
-  @apply text-[11px] uppercase tracking-widest text-brand-400 mb-1;
-}

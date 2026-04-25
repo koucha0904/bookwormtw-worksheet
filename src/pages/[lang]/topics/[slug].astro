@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import WorksheetCard from '../../../components/WorksheetCard.astro';
-import AdSlot from '../../../components/AdSlot.astro';
 import { t, localizedPath, type Lang } from '../../../i18n/ui';
 import { collectionPageJsonLd, breadcrumbJsonLd } from '../../../lib/seo';
 
@@ -87,6 +86,5 @@ const canonical = localizedPath(lang, `/topics/${cleanSlug}`);
       ))}
     </div>
 
-    <AdSlot slot="footer" />
   </div>
 </BaseLayout>
