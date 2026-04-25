@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finland Explorer | Boy Explorer</title>
+  <style>
+    @page { size: A4 portrait; margin: 14mm 14mm 18mm 14mm; }
+
+    :root {
+      --ink: #213448;
+      --muted: #5d748b;
+      --primary: #3a7fc1;
+      --secondary: #5e95cf;
+      --soft: #bed4ea;
+      --paper-bg: #e9f1f8;
+      --hero-bg: #eef5fb;
+      --card-bg: #ffffff;
+      --line: #cad9e8;
+      --hint-bg: #eef6fd;
+      --challenge-bg: #fff8e7;
+      --challenge-border: #e4c67a;
+      --success-bg: #f4fbf8;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper-bg);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
+      line-height: 1.55;
+    }
+
+    body { padding: 20px 14px 36px; }
+    .sheet { max-width: 210mm; margin: 0 auto; }
+    .page {
+      background: #fff;
+      box-shadow: 0 16px 38px rgba(40, 62, 92, 0.14);
+      border-radius: 20px;
+      padding: 14mm 14mm 12mm;
+      margin: 0 auto 20px;
+      break-after: page;
+      page-break-after: always;
+    }
+    .page:last-of-type { break-after: auto; page-break-after: auto; }
+
+    .hero, .card, .helper, .task-block, .price-card, .match-card, .achievement-card, .reflection-card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    .hero {
+      background: linear-gradient(180deg, var(--hero-bg), #f8fbfe);
+      border: 2px solid #d5e4f1;
+      border-radius: 22px;
+      padding: 18px 22px;
+      text-align: center;
+    }
+
+    .hero-emoji { font-size: 44px; line-height: 1; margin-bottom: 8px; }
+    .hero h1 { font-size: 29px; line-height: 1.2; color: var(--primary); letter-spacing: 0.02em; }
+    .hero .subtitle { margin-top: 6px; font-size: 15px; color: var(--secondary); }
+
+    .role-pill {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #dfeefa;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .card, .task-block, .price-card, .match-card, .achievement-card, .reflection-card {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: var(--card-bg);
+    }
+
+    .helper {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--hint-bg);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    h2 { display: flex; align-items: center; gap: 8px; font-size: 22px; color: var(--primary); margin-bottom: 8px; }
+    h3 { display: flex; align-items: center; gap: 6px; font-size: 17px; color: var(--secondary); margin-bottom: 8px; }
+    .body-copy { font-size: 14px; color: var(--ink); }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .field-line, .inline-line {
+      border-bottom: 1.8px solid var(--secondary);
+      min-height: 18px;
+      flex: 1;
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+
+    .single-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .tf-grid, .achievement-list, .choice-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .choice-grid.two {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+    }
+
+    .check-item, .tf-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .box, .circle {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      margin-top: 2px;
+      border: 2px solid var(--secondary);
+      background: #fff;
+    }
+    .box { border-radius: 4px; }
+    .circle { border-radius: 999px; }
+
+    .task-block { background: #fbfdff; }
+    .price-card { background: #f8fbff; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    th, td {
+      border: 1px solid #d7e3ee;
+      padding: 8px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #e4eef8;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .match-card { background: #fbfdff; }
+    .match-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px dashed #d7e3ee;
+      font-size: 14px;
+    }
+    .match-row:last-child { border-bottom: none; }
+
+    .challenge { background: var(--challenge-bg); border-color: var(--challenge-border); }
+    .achievement-card { background: var(--success-bg); }
+    .achievement-star { color: #936600; font-weight: 800; }
+
+    .reflection-box {
+      min-height: 16mm;
+      margin-top: 6px;
+      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 8mm, rgba(94,149,207,0.28) 8mm, rgba(94,149,207,0.28) 8.5mm);
+    }
+
+    .footer {
+      margin-top: 10mm;
+      padding-top: 4mm;
+      border-top: 1px solid #d9e3ec;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .screen-print-hint { margin-top: 8px; text-align: center; font-size: 12px; color: var(--muted); }
+
+    @media print {
+      html, body { background: #fff; }
+      body { padding: 0; }
+      .sheet { width: 182mm; margin: 0 auto; }
+      .page {
+        width: 182mm;
+        height: 265mm;
+        display: flex;
+        flex-direction: column;
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0;
+        padding: 3mm 0 1mm;
+        overflow: hidden;
+      }
+      .footer { margin-top: auto; }
+      .screen-print-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="page">
+      <div class="hero">
+        <div class="hero-emoji">🇫🇮🧭</div>
+        <h1>Finland Explorer</h1>
+        <p class="subtitle">Midnight Sun, Thousand Lakes &amp; the Quiet Nation</p>
+        <div class="role-pill">Arctic Explorer 🧭</div>
+      </div>
+
+      <div class="card">
+        <h2>🎯 Mission Briefing</h2>
+        <p class="body-copy">You are an Arctic explorer who has just arrived in Finland. Finland is a country where the sun may not set, or may barely rise, and it is waiting for you to solve its mysteries. Complete 4 mission tasks during this Nordic adventure and unlock the Finland Expert badge.</p>
+      </div>
+
+      <div class="card">
+        <h3>📝 Before You Start</h3>
+        <div class="field-grid">
+          <div class="field"><span>My name</span><span class="field-line"></span></div>
+          <div class="field"><span>Date</span><span class="field-line"></span></div>
+        </div>
+        <div class="single-line"><span>The thing I most want to figure out today:</span><span class="inline-line"></span></div>
+      </div>
+
+      <div class="helper">Explorer tip: remember just three clues for now. High latitude, lots of lakes, and quiet culture. The rest will make sense as you go.</div>
+      <div class="card">
+        <h2>🌞🌑 Mission 1: Where Did the Sun Go?</h2>
+        <p class="body-copy">Finland is far north, so summer days can stay bright very late and winter days can be quite short. This dramatic rhythm of light is one of Finland's most famous natural features.</p>
+      </div>
+
+      <div class="task-block">
+        <h3>✅ Activity A: True or False</h3>
+        <div class="tf-grid">
+          <div class="tf-item"><span class="circle"></span><span>In Finland, the sky can still be bright at 2 a.m. in summer. (True / False)</span></div>
+          <div class="tf-item"><span class="circle"></span><span>In winter, Helsinki has only about 6 hours of daylight each day. (True / False)</span></div>
+          <div class="tf-item"><span class="circle"></span><span>The true midnight sun happens only inside the Arctic Circle. (True / False)</span></div>
+          <div class="tf-item"><span class="circle"></span><span>Finnish people may need thick curtains to sleep in summer. (True / False)</span></div>
+        </div>
+      </div>
+
+      <div class="task-block challenge">
+        <h3>✍️ Activity B: Imagine It</h3>
+        <p class="body-copy">If you were in Finland in summer and saw sunlight at 11 p.m., you would<span class="inline-line" style="min-width: 220px;"></span></p>
+      </div>
+
+      <div class="helper">Quick fact: the full midnight sun happens north of the Arctic Circle. In southern cities like Helsinki, summer nights stay very bright, but not always as full 24-hour daylight.</div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>1</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+
+    <section class="page">
+      <div class="card">
+        <h2>💶 Mission 2: Price Detective</h2>
+        <p class="body-copy">Finland uses the euro (€). In this worksheet we will use <strong>€1 ≈ NT$37</strong> for simple maths. That classroom estimate is based on mid-April 2026 historical exchange-rate data.</p>
+      </div>
+
+      <div class="price-card">
+        <h3>🧮 Activity A: Quick Conversion</h3>
+        <div class="single-line"><span>A cup of coffee costs about €4.4. That is about</span><span class="inline-line"></span><span>TWD.</span></div>
+        <div class="single-line"><span>An adult AB single ticket in Helsinki costs €3.3. That is about</span><span class="inline-line"></span><span>TWD.</span></div>
+      </div>
+
+      <div class="price-card">
+        <h3>📋 Activity B: Compare Prices</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Finland price</th>
+              <th>Taiwan price</th>
+              <th>More / Less?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Fast-food combo meal (example)</td><td>about €11</td><td>about NT$150</td><td>______</td></tr>
+            <tr><td>500ml bottled water</td><td>about €1.2–2.3</td><td>about NT$20</td><td>______</td></tr>
+            <tr><td>Helsinki AB single ticket</td><td>€3.3</td><td>about NT$30</td><td>______</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="helper">Detective hint: multiply the euro price by 37, then compare it with a price you already know from Taiwan. The tram fare here is based on official HSL pricing; the water and fast-food prices are example ranges and can vary by store, brand and city.</div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>2</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+
+    <section class="page">
+      <div class="card">
+        <h2>🫐🌲 Mission 3: Finland's Secrets</h2>
+        <p class="body-copy">Finland is known as the land of a thousand lakes, but the real number is far bigger than that. Finnish culture is also famous for quietness, forests, berries and sauna traditions.</p>
+      </div>
+
+      <div class="task-block">
+        <h3>❓ Activity A: Multiple Choice</h3>
+        <p class="body-copy"><strong>Q1:</strong> About how many lakes does Finland have?</p>
+        <div class="choice-grid two">
+          <div class="check-item"><span class="box"></span><span>A. About 1,800</span></div>
+          <div class="check-item"><span class="box"></span><span>B. About 18,000</span></div>
+          <div class="check-item"><span class="box"></span><span>C. More than 180,000</span></div>
+          <div class="check-item"><span class="box"></span><span>D. About 500</span></div>
+        </div>
+        <p class="body-copy" style="margin-top:10px;"><strong>Q2:</strong> Why do Finland's trams and public transport often feel trust-based?</p>
+        <div class="choice-grid two">
+          <div class="check-item"><span class="box"></span><span>A. The tram is free</span></div>
+          <div class="check-item"><span class="box"></span><span>B. Riders are expected to buy tickets honestly</span></div>
+          <div class="check-item"><span class="box"></span><span>C. Gates cost too much</span></div>
+          <div class="check-item"><span class="box"></span><span>D. Only tourists need tickets</span></div>
+        </div>
+      </div>
+
+      <div class="match-card">
+        <h3>🔗 Activity B: Match Them</h3>
+        <div class="match-row"><span>Sauna</span><span>↔</span><span>A traditional way to relax</span></div>
+        <div class="match-row"><span>Lingonberry</span><span>↔</span><span>A common wild berry</span></div>
+        <div class="match-row"><span>Sisu</span><span>↔</span><span>Finnish grit and determination</span></div>
+        <div class="match-row"><span>Thousand lakes</span><span>↔</span><span>More than 180,000 lakes</span></div>
+      </div>
+
+      <div class="task-block challenge">
+        <h3>🛒 Activity C: Berry Choice</h3>
+        <p class="body-copy">If you visited a Finnish supermarket, which berry would you most want to try?</p>
+        <div class="choice-grid two">
+          <div class="check-item"><span class="box"></span><span>Blueberry</span></div>
+          <div class="check-item"><span class="box"></span><span>Lingonberry</span></div>
+          <div class="check-item"><span class="box"></span><span>Cloudberry</span></div>
+          <div class="check-item"><span class="box"></span><span>Other: ______</span></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>3</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+
+    <section class="page">
+      <div class="achievement-card">
+        <h2>🏅 Badge + Reflection</h2>
+        <div class="achievement-list">
+          <div class="check-item"><span class="box"></span><span>I know what happens to the sun in a Finnish summer</span></div>
+          <div class="check-item"><span class="box"></span><span>I converted euros into Taiwan dollars</span></div>
+          <div class="check-item"><span class="box"></span><span>I know how many lakes Finland has</span></div>
+          <div class="check-item"><span class="box"></span><span class="achievement-star">I can explain why Finnish public transport is often described as trust-based</span></div>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <h3>💬 Reflection Time</h3>
+        <p class="body-copy">The most surprising Finland fact for me today was:</p>
+        <div class="reflection-box"></div>
+        <p class="body-copy" style="margin-top: 10px;">If I went to Finland, the thing I would most want to try is:</p>
+        <div class="reflection-box"></div>
+      </div>
+
+      <div class="helper">Once every box is finished, you have unlocked your Finland Expert badge.</div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>4</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+  </main>
+</body>
+</html>

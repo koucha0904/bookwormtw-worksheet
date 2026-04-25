@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>芬蘭探索學習單｜女孩任務版</title>
+  <style>
+    @page { size: A4 portrait; margin: 14mm 14mm 18mm 14mm; }
+
+    :root {
+      --ink: #4e3a3b;
+      --muted: #8a6c70;
+      --primary: #b46f89;
+      --secondary: #cc8a96;
+      --soft: #ecd4dd;
+      --paper-bg: #f5ecf0;
+      --hero-bg: #fcf5f7;
+      --card-bg: #ffffff;
+      --line: #ead5dd;
+      --hint-bg: #fff2f6;
+      --challenge-bg: #fff7e8;
+      --challenge-border: #e4c67a;
+      --success-bg: #fff9fb;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--paper-bg);
+      color: var(--ink);
+      font-family: "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.58;
+    }
+
+    body { padding: 20px 14px 36px; }
+    .sheet { max-width: 210mm; margin: 0 auto; }
+
+    .page {
+      background: #fff;
+      box-shadow: 0 16px 40px rgba(120, 78, 72, 0.14);
+      border-radius: 20px;
+      padding: 14mm 14mm 12mm;
+      margin: 0 auto 20px;
+      break-after: page;
+      page-break-after: always;
+    }
+
+    .page:last-of-type {
+      break-after: auto;
+      page-break-after: auto;
+    }
+
+    .hero,
+    .card,
+    .helper,
+    .task-block,
+    .price-card,
+    .match-card,
+    .achievement-card,
+    .reflection-card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    .hero {
+      background: linear-gradient(180deg, var(--hero-bg), #fff9fb);
+      border: 2px solid #efdce3;
+      border-radius: 24px;
+      padding: 18px 22px;
+      text-align: center;
+    }
+
+    .hero-emoji { font-size: 44px; line-height: 1; margin-bottom: 8px; }
+
+    .hero h1 {
+      font-size: 30px;
+      line-height: 1.2;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+
+    .hero .subtitle {
+      margin-top: 6px;
+      font-size: 15px;
+      color: var(--secondary);
+    }
+
+    .role-pill {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #f7e7ed;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .card,
+    .task-block,
+    .price-card,
+    .match-card,
+    .achievement-card,
+    .reflection-card {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: var(--card-bg);
+    }
+
+    .helper {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--hint-bg);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 17px;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+
+    .body-copy { font-size: 14px; color: var(--ink); }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .field-line,
+    .inline-line {
+      border-bottom: 1.8px solid var(--secondary);
+      min-height: 18px;
+      flex: 1;
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+
+    .single-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .tf-grid,
+    .achievement-list,
+    .choice-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .choice-grid.two {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+    }
+
+    .check-item,
+    .tf-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .box,
+    .circle {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      margin-top: 2px;
+      border: 2px solid var(--secondary);
+      background: #fff;
+    }
+
+    .box { border-radius: 4px; }
+    .circle { border-radius: 999px; }
+
+    .task-block { background: #fffdfd; }
+    .price-card { background: #fffafb; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    th, td {
+      border: 1px solid #efdde2;
+      padding: 8px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8eaef;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .match-card { background: #fffdfd; }
+
+    .match-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px dashed #ecdbe0;
+      font-size: 14px;
+    }
+
+    .match-row:last-child { border-bottom: none; }
+
+    .challenge {
+      background: var(--challenge-bg);
+      border-color: var(--challenge-border);
+    }
+
+    .achievement-card { background: var(--success-bg); }
+
+    .achievement-star {
+      color: #936600;
+      font-weight: 800;
+    }
+
+    .reflection-box {
+      min-height: 16mm;
+      margin-top: 6px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 8mm,
+        rgba(204, 138, 150, 0.26) 8mm,
+        rgba(204, 138, 150, 0.26) 8.5mm
+      );
+    }
+
+    .footer {
+      margin-top: 10mm;
+      padding-top: 4mm;
+      border-top: 1px solid #ead8de;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .screen-print-hint {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media print {
+      html, body { background: #fff; }
+      body { padding: 0; }
+      .sheet {
+        width: 182mm;
+        margin: 0 auto;
+      }
+      .page {
+        width: 182mm;
+        height: 265mm;
+        display: flex;
+        flex-direction: column;
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0;
+        padding: 3mm 0 1mm;
+        overflow: hidden;
+      }
+      .footer { margin-top: auto; }
+      .screen-print-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="page">
+      <div class="hero">
+        <div class="hero-emoji">🇫🇮🧭</div>
+        <h1>芬蘭探索學習單</h1>
+        <p class="subtitle">永晝、千湖與安靜的國度</p>
+        <div class="role-pill">北極探索員 🧭</div>
+      </div>
+
+      <div class="card">
+        <h2>🎯 任務宣言</h2>
+        <p class="body-copy">你是一位剛抵達芬蘭的北極探索員。芬蘭，一個太陽不落下（或不升起）的國度，等你去解謎！在 24 小時的北歐大冒險裡，完成 4 項觀察任務，解鎖「芬蘭達人」徽章。</p>
+      </div>
+
+      <div class="card">
+        <h3>📝 出發前</h3>
+        <div class="field-grid">
+          <div class="field"><span>我的名字</span><span class="field-line"></span></div>
+          <div class="field"><span>日期</span><span class="field-line"></span></div>
+        </div>
+        <div class="single-line"><span>今天最想搞清楚的事：</span><span class="inline-line"></span></div>
+      </div>
+
+      <div class="helper">探索提示：先記住三個關鍵字就夠了。高緯度、很多湖、很安靜。等你翻到後面，這三件事都會慢慢變清楚。</div>
+
+      <div class="card">
+        <h2>🌞🌑 任務一：太陽去哪了？</h2>
+        <p class="body-copy">芬蘭緯度高，夏天太陽幾乎不落下，冬天白天又變得很短。這種極端的日照，是芬蘭最有名的自然現象之一。</p>
+      </div>
+
+      <div class="task-block">
+        <h3>✅ 活動 A：判斷題</h3>
+        <div class="tf-grid">
+          <div class="tf-item"><span class="circle"></span><span>夏天芬蘭凌晨 2 點天還是亮的？（是 / 否）</span></div>
+          <div class="tf-item"><span class="circle"></span><span>冬天赫爾辛基每天只有約 6 小時日照？（是 / 否）</span></div>
+          <div class="tf-item"><span class="circle"></span><span>永晝只在北極圈內才會發生？（是 / 否）</span></div>
+          <div class="tf-item"><span class="circle"></span><span>芬蘭人夏天睡覺要用厚窗簾擋光？（是 / 否）</span></div>
+        </div>
+      </div>
+
+      <div class="task-block challenge">
+        <h3>✍️ 活動 B：想像一下</h3>
+        <p class="body-copy">如果你在夏天的芬蘭，晚上 11 點看到陽光，你會<span class="inline-line" style="min-width: 200px;"></span></p>
+      </div>
+
+      <div class="helper">小提醒：真正的永晝發生在北極圈內；像赫爾辛基這樣較南邊的城市，夏夜也會很亮，但不一定是完整的 24 小時白天。</div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>1</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+
+    <section class="page">
+      <div class="card">
+        <h2>💶 任務二：物價偵探</h2>
+        <p class="body-copy">芬蘭使用歐元（€）。這份學習單先用 <strong>1 歐元約等於新台幣 37 元</strong> 來估算，這是依 2026 年 4 月中旬的歷史匯率做的教學用近似值，方便小學生快速換算。</p>
+      </div>
+
+      <div class="price-card">
+        <h3>🧮 活動 A：換算練習</h3>
+        <div class="single-line"><span>一杯咖啡約 €4.4，換算成台幣約</span><span class="inline-line"></span><span>元</span></div>
+        <div class="single-line"><span>赫爾辛基 AB 區成人單程票 €3.3，換算約</span><span class="inline-line"></span><span>元</span></div>
+      </div>
+
+      <div class="price-card">
+        <h3>📋 活動 B：觀察比一比</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>品項</th>
+              <th>芬蘭價格</th>
+              <th>台灣價格</th>
+              <th>貴 / 便宜？</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>速食套餐（參考）</td><td>約 €11</td><td>約 NT$150</td><td>______</td></tr>
+            <tr><td>500ml 瓶裝水</td><td>約 €1.2–2.3</td><td>約 NT$20</td><td>______</td></tr>
+            <tr><td>赫爾辛基 AB 單程票</td><td>€3.3</td><td>約 NT$30</td><td>______</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="helper">偵探提示：先把歐元乘以 37，再看跟台灣熟悉的價格差多少。這裡的電車票用 HSL 官方票價；瓶裝水和速食則是教學用參考值，實際價格會因品牌、商店和地點不同而變動。</div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>2</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+
+    <section class="page">
+      <div class="card">
+        <h2>🫐🌲 任務三：芬蘭人的祕密</h2>
+        <p class="body-copy">芬蘭是千湖之國，有超過 18 萬個湖。很多人覺得芬蘭人很安靜，但那更像是一種不打擾別人的尊重。芬蘭也很常見莓果、森林和桑拿文化。</p>
+      </div>
+
+      <div class="task-block">
+        <h3>❓ 活動 A：選擇題</h3>
+        <p class="body-copy"><strong>Q1：</strong>芬蘭有多少個湖泊？</p>
+        <div class="choice-grid two">
+          <div class="check-item"><span class="box"></span><span>A. 約 1,800 個</span></div>
+          <div class="check-item"><span class="box"></span><span>B. 約 18,000 個</span></div>
+          <div class="check-item"><span class="box"></span><span>C. 超過 180,000 個</span></div>
+          <div class="check-item"><span class="box"></span><span>D. 約 500 個</span></div>
+        </div>
+        <p class="body-copy" style="margin-top:10px;"><strong>Q2：</strong>芬蘭的大眾運輸為什麼常讓人感覺比較靠誠信？</p>
+        <div class="choice-grid two">
+          <div class="check-item"><span class="box"></span><span>A. 電車免費搭</span></div>
+          <div class="check-item"><span class="box"></span><span>B. 靠乘客自覺購票</span></div>
+          <div class="check-item"><span class="box"></span><span>C. 閘門太貴</span></div>
+          <div class="check-item"><span class="box"></span><span>D. 只有觀光客要買票</span></div>
+        </div>
+      </div>
+
+      <div class="match-card">
+        <h3>🔗 活動 B：連連看</h3>
+        <div class="match-row"><span>桑拿浴</span><span>↔</span><span>放鬆身心的傳統</span></div>
+        <div class="match-row"><span>越橘（lingonberry）</span><span>↔</span><span>常見野生莓果</span></div>
+        <div class="match-row"><span>Sisu</span><span>↔</span><span>芬蘭人的堅毅精神</span></div>
+        <div class="match-row"><span>千湖</span><span>↔</span><span>超過 18 萬個湖</span></div>
+      </div>
+
+      <div class="task-block challenge">
+        <h3>🛒 活動 C：小觀察框</h3>
+        <p class="body-copy">如果你去芬蘭超市，你最想試試哪種莓果？</p>
+        <div class="choice-grid two">
+          <div class="check-item"><span class="box"></span><span>藍莓</span></div>
+          <div class="check-item"><span class="box"></span><span>越橘</span></div>
+          <div class="check-item"><span class="box"></span><span>雲莓（cloudberry）</span></div>
+          <div class="check-item"><span class="box"></span><span>其他：______</span></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>3</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+
+    <section class="page">
+      <div class="achievement-card">
+        <h2>🏅 成就 + 反思</h2>
+        <div class="achievement-list">
+          <div class="check-item"><span class="box"></span><span>我知道芬蘭夏天的太陽什麼時候下山（或不下山）</span></div>
+          <div class="check-item"><span class="box"></span><span>我算出了歐元和台幣的換算</span></div>
+          <div class="check-item"><span class="box"></span><span>我知道芬蘭有多少個湖</span></div>
+          <div class="check-item"><span class="box"></span><span class="achievement-star">我能說明為什麼芬蘭的大眾運輸常被說很靠誠信（挑戰徽章）</span></div>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <h3>💬 反思時間</h3>
+        <p class="body-copy">今天最讓我意外的芬蘭事是：</p>
+        <div class="reflection-box"></div>
+        <p class="body-copy" style="margin-top: 10px;">如果我去芬蘭，最想體驗：</p>
+        <div class="reflection-box"></div>
+      </div>
+
+      <div class="helper">完成所有任務後，你就解鎖了「芬蘭達人」徽章。下次再看到北歐新聞或地圖時，你會更知道自己在看什麼。</div>
+
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · 書蟲學習單</span>
+        <span>4</span>
+      </div>
+      <div class="screen-print-hint">按 ⌘P 列印</div>
+    </section>
+  </main>
+</body>
+</html>
