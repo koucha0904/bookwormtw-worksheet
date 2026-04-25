@@ -1,6 +1,6 @@
 ---
 title: Earth's Treasures Worksheet — Inside Taichung's Mineral World
-description: A printable worksheet for upper elementary kids visiting the Earth's Treasures permanent mineral exhibition at the National Museum of Natural Science, Taichung. Covers Mohs hardness, fluorescent minerals, Hokutolite, Fengtian Nephrite, and hands-on observation activities. Free PDF download.
+description: A printable worksheet for upper elementary kids visiting the Earth's Treasures permanent mineral exhibition at the National Museum of Natural Science, Taichung. Covers Mohs hardness, fluorescent minerals, Hokutolite, Fengtian Nephrite, and hands-on observation activities. Open it in your browser to print or save as PDF.
 topic: minerals-en
 tags: [Minerals, Museum, NMNS, Taichung, Earth Science, Observation]
 grade: upper
@@ -26,11 +26,12 @@ faq:
 
 ## What's inside this worksheet?
 
-*Earth's Treasures* is Taiwan's first large-scale permanent mineral exhibition, and for an elementary schooler the sheer volume of information can be overwhelming. This worksheet compresses the whole gallery into 3 pages of A4, turning the visit into a focused, purposeful adventure:
+*Earth's Treasures* is Taiwan's first large-scale permanent mineral exhibition, and for an elementary schooler the sheer volume of information can be overwhelming. This worksheet turns the whole gallery into a focused 4-page A4 adventure:
 
 1. **Before you go**: learn what minerals are and how the Mohs hardness scale works, then tick the three things you most want to see today.
-2. **Gallery observation notes**: work through five designated zones — Mineral Evolution, Symmetry & Beauty of Crystals, Color & Luster of Crystals, Treasures of Taiwan, Mining the World — writing one observation per zone plus one "Find it!" challenge.
-3. **My favourite specimen**: choose one mineral to sketch, record its name, origin, and hardness, then answer three fun-fact questions.
+2. **Gallery observation notes I**: visit two designated zones and write down what you notice first.
+3. **Gallery observation notes II**: keep exploring the other three zones and finish with one "Find it!" challenge.
+4. **My favourite specimen**: choose one mineral to sketch, record its name, origin, and hardness, then answer three fun-fact questions.
 
 ## Why I made this for my daughter
 

@@ -445,6 +445,23 @@ If a page's estimated height > **250mm**: split or cut one block.
 - Avoid the common failure mode where content exceeds the printable area by a tiny amount and the browser generates a blank trailing page.
 - For dense museum worksheets, a clean 5-page layout is acceptable if it prevents clipping or blank-page output.
 
+### Empty-space pass
+
+- After the layout is stable, do one more pass for pages that still feel too empty.
+- Do not leave large blank areas just because the page no longer overflows.
+- Prefer turning spare space into useful worksheet space:
+  - add a short observation tip
+  - add one tiny mission or prompt
+  - add a few more writing lines
+  - slightly enlarge a drawing or note area
+- Do not fill space with decorative fluff or long explanatory paragraphs.
+- When a page still has roughly 20%+ unused space, add a functional block before changing page count again.
+- Good fillers are child-friendly and actionable, for example:
+  - 觀察小提醒 / Observation tip
+  - 我還發現了… / I also noticed...
+  - 寫下一個你想回家查查看的問題 / Write one question you want to look up later
+  - 多一條心得線或一個小勾選任務
+
 ---
 
 ## Fallback — self-generated HTML (skip Codex Design)

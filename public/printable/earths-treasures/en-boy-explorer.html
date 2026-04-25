@@ -329,10 +329,24 @@
     @media print {
       html, body { background: #fff; }
       body { padding: 0; }
+      .sheet {
+        width: 182mm;
+        margin: 0 auto;
+      }
       .page {
+        width: 182mm;
+        height: 265mm;
+        display: flex;
+        flex-direction: column;
         box-shadow: none;
         border-radius: 0;
         margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .footer {
+        margin-top: auto;
+        padding-top: 4mm;
       }
       .screen-print-hint { display: none; }
     }
@@ -360,14 +374,6 @@
         </p>
       </div>
 
-      <div class="footer">
-        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
-        <span>1</span>
-      </div>
-      <div class="screen-print-hint">Press ⌘P to print</div>
-    </section>
-
-    <section class="page">
       <div class="hardness-card">
         <h3>📏 Mohs Hardness Mini Guide</h3>
         <table>
@@ -389,6 +395,14 @@
         </table>
       </div>
 
+      <div class="footer">
+        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
+        <span>1</span>
+      </div>
+      <div class="screen-print-hint">Press ⌘P to print</div>
+    </section>
+
+    <section class="page">
       <div class="wish-card">
         <h3>👀 Three Things I Most Want to See</h3>
         <div class="check-grid">
@@ -401,19 +415,15 @@
         </div>
       </div>
 
-      <div class="footer">
-        <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
-        <span>2</span>
-      </div>
-      <div class="screen-print-hint">Press ⌘P to print</div>
-    </section>
-
-    <section class="page">
       <div class="section-card">
         <h2>🔎 Gallery Observation Notes</h2>
         <p class="body-copy">
           At each zone, stop for one minute and write what you notice: colour, shape, size, or what it reminds you of.
         </p>
+      </div>
+
+      <div class="helper">
+        Observation tip: start with colour, then shape, then what it reminds you of. That usually makes the writing easier.
       </div>
 
       <div class="observation-list">
@@ -432,19 +442,11 @@
           </div>
           <div class="notes"></div>
         </div>
-
-        <div class="observation-block">
-          <div class="observation-label">
-            <div class="zone">③ Colour and Luster</div>
-            <div class="prompt">Do not miss the 1,700 kg fluorescent rock. Under short-wave UV, Willemite glows green and Calcite glows red.</div>
-          </div>
-          <div class="notes"></div>
-        </div>
       </div>
 
       <div class="footer">
         <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
-        <span>3</span>
+        <span>2</span>
       </div>
       <div class="screen-print-hint">Press ⌘P to print</div>
     </section>
@@ -457,7 +459,19 @@
         </p>
       </div>
 
+      <div class="helper">
+        Pick one specimen you really want to stop and study. A slower look is better than rushing every zone.
+      </div>
+
       <div class="observation-list">
+        <div class="observation-block">
+          <div class="observation-label">
+            <div class="zone">③ Colour and Luster</div>
+            <div class="prompt">Do not miss the 1,700 kg fluorescent rock. Under short-wave UV, Willemite glows green and Calcite glows red.</div>
+          </div>
+          <div class="notes"></div>
+        </div>
+
         <div class="observation-block">
           <div class="observation-label">
             <div class="zone">④ Treasures of Taiwan</div>
@@ -482,7 +496,7 @@
 
       <div class="footer">
         <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
-        <span>4</span>
+        <span>3</span>
       </div>
       <div class="screen-print-hint">Press ⌘P to print</div>
     </section>
@@ -542,7 +556,7 @@
 
       <div class="footer">
         <span>worksheet.bookwormtw.com · Bookworm Worksheets</span>
-        <span>5</span>
+        <span>4</span>
       </div>
       <div class="screen-print-hint">Press ⌘P to print</div>
     </section>

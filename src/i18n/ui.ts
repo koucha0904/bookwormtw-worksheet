@@ -11,7 +11,7 @@ export const ui = {
   zh: {
     'site.name': '書蟲學習單',
     'site.tagline': '陪孩子從世界與萬物開始學習',
-    'site.description': '免費的小學學習單，陪孩子走進每一個國家、每一塊礦石、每一個有趣的主題。可線上閱讀，也能下載 PDF 列印。',
+    'site.description': '免費的小學學習單，陪孩子走進每一個國家、每一塊礦石、每一個有趣的主題。可直接開啟學習單，線上閱讀或自行列印。',
     'nav.home': '首頁',
     'nav.worksheets': '所有學習單',
     'nav.topics': '主題分類',
@@ -46,7 +46,7 @@ export const ui = {
   en: {
     'site.name': 'Bookworm Worksheets',
     'site.tagline': 'Learning the world, one worksheet at a time',
-    'site.description': 'Free printable elementary worksheets about countries, minerals, animals and more — handcrafted by a mom in Taiwan, available in English and Traditional Chinese.',
+    'site.description': 'Free elementary worksheets about countries, minerals, animals and more — handcrafted by a mom in Taiwan, ready to open, print, or save as PDF from your browser.',
     'nav.home': 'Home',
     'nav.worksheets': 'All Worksheets',
     'nav.topics': 'Topics',
