@@ -118,10 +118,10 @@ Optional style override example:
 ```yaml
 styles:
   - id: boy-explorer
-    label: 男孩探險版
+    label: 藍調版
     description: 冷色系任務版，結構和活動不變，只調整配色與視覺語氣。
   - id: girl-mission
-    label: 女孩任務版
+    label: 玫瑰版
     description: 暖色系任務版，結構和活動不變，只調整配色與視覺語氣。
 ```
 

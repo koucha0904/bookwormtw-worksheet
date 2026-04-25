@@ -13,11 +13,11 @@ publishedAt: 2026-04-25
 featured: false
 styles:
   - id: boy-explorer
-    label: 男孩探險版
+    label: 藍調版
     description: 冷色藍調任務版，用北極探索員的節奏帶孩子認識芬蘭。
     order: 1
   - id: girl-mission
-    label: 女孩任務版
+    label: 玫瑰版
     description: 玫瑰色任務版，內容相同，只調整配色和視覺語氣。
     order: 2
 faq:

@@ -87,13 +87,13 @@ Important visual rule:
 Default style personalities:
 
 - `boy-explorer`
+  - user-facing name: Blue Edition / 藍調版
   - inspired by the cooler, cleaner reference
-  - suitable for boys without becoming too noisy
   - use blue, teal, soft green, light yellow
   - mission-based layout stays the same; only color and visual tone change
 - `girl-mission`
+  - user-facing name: Rose Edition / 玫瑰版
   - inspired by the warmer, story-led reference
-  - suitable for girls without becoming too sugary
   - use peach, blush pink, warm gold, cream
   - mission-based layout stays the same; only color and visual tone change
 

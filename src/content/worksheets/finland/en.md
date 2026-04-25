@@ -13,11 +13,11 @@ publishedAt: 2026-04-25
 featured: false
 styles:
   - id: boy-explorer
-    label: Boy Explorer
+    label: Blue Edition
     description: Cool blue mission version built around an Arctic explorer storyline.
     order: 1
   - id: girl-mission
-    label: Girl Mission
+    label: Rose Edition
     description: Rose-toned mission version with the same learning tasks and a softer visual tone.
     order: 2
 faq:
